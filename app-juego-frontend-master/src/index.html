@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameTrack - Dashboard</title>
+    <!-- Tailwind CSS (CDN para prueba rápida) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans h-screen overflow-hidden flex">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col hidden md:flex">
+        <!-- Logo -->
+        <div class="h-16 flex items-center px-6 border-b border-gray-700">
+            <i data-lucide="gamepad-2" class="w-8 h-8 text-purple-500 mr-3"></i>
+            <span class="text-xl font-bold tracking-wider text-white">GameTrack</span>
+        </div>
+
+        <div>
+            <p>Hola All</p>
+        </div>
+
+        <!-- Navegación -->
+        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-2">
+            <a href="#" class="flex items-center px-4 py-3 bg-purple-600/20 text-purple-400 rounded-lg transition-colors">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors">
+                <i data-lucide="library" class="w-5 h-5 mr-3"></i>
+                <span class="font-medium">Catálogo de Juegos</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors">
+                <i data-lucide="trophy" class="w-5 h-5 mr-3"></i>
+                <span class="font-medium">Mis Partidas</span>
+            </a>
+            <a href="#" class="flex items-center px-4 py-3 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors">
+                <i data-lucide="users" class="w-5 h-5 mr-3"></i>
+                <span class="font-medium">Comunidad</span>
+            </a>
+        </nav>
+
+        <!-- Cerrar Sesión -->
+        <div class="p-4 border-t border-gray-700">
+            <button class="flex items-center w-full px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors">
+                <i data-lucide="log-out" class="w-5 h-5 mr-3"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-w-0">
+        
+        <!-- HEADER -->
+        <header class="h-16 bg-gray-800/50 backdrop-blur-sm border-b border-gray-700 flex items-center justify-between px-6 z-10">
+            <!-- Botón Menú Móvil -->
+            <button class="md:hidden text-gray-400 hover:text-white">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Barra de Búsqueda -->
+            <div class="hidden md:flex items-center relative w-96">
+                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-3"></i>
+                <input type="text" placeholder="Buscar juegos, jugadores..." 
+                       class="w-full bg-gray-900 border border-gray-700 text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all">
+            </div>
+
+            <!-- Perfil de Usuario -->
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-400 hover:text-white relative">
+                    <i data-lucide="bell" class="w-6 h-6"></i>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+                <div class="flex items-center space-x-3 border-l border-gray-700 pl-4">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Gamer" alt="Avatar" class="w-8 h-8 rounded-full bg-gray-700">
+                    <span class="text-sm font-medium hidden sm:block">PlayerOne</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ÁREA DE CONTENIDO DINÁMICO (Aquí iría el <router-outlet> en Angular) -->
+        <main class="flex-1 overflow-y-auto p-6 bg-gray-900">
+            
+            <!-- Ejemplo de contenido interno: Dashboard Widgets -->
+            <div class="mb-6 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-white">Resumen de Actividad</h1>
+            </div>
+
+            <!-- Grid de Estadísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-purple-900 to-gray-800 p-6 rounded-xl border border-purple-700/50 shadow-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-purple-300 text-sm font-medium mb-1">Horas Jugadas</p>
+                            <h3 class="text-3xl font-bold text-white">124 hrs</h3>
+                        </div>
+                        <div class="p-3 bg-purple-500/20 rounded-lg">
+                            <i data-lucide="clock" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-900 to-gray-800 p-6 rounded-xl border border-blue-700/50 shadow-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-blue-300 text-sm font-medium mb-1">Juegos Completados</p>
+                            <h3 class="text-3xl font-bold text-white">12</h3>
+                        </div>
+                        <div class="p-3 bg-blue-500/20 rounded-lg">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-900 to-gray-800 p-6 rounded-xl border border-green-700/50 shadow-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-green-300 text-sm font-medium mb-1">Victorias / Top Scores</p>
+                            <h3 class="text-3xl font-bold text-white">48</h3>
+                        </div>
+                        <div class="p-3 bg-green-500/20 rounded-lg">
+                            <i data-lucide="award" class="w-6 h-6 text-green-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Continuar Jugando -->
+            <h2 class="text-xl font-bold text-white mb-4">Continuar Jugando</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Tarjeta de Juego -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-purple-500 transition-colors group cursor-pointer">
+                    <div class="h-32 bg-gray-700 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Juego" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-white mb-1">Cyber Quest 2077</h4>
+                        <p class="text-xs text-gray-400 mb-3">RPG • Última vez hace 2 días</p>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <!-- Script para inicializar los iconos -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
