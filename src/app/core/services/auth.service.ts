@@ -1,7 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { inject } from '@angular/core';
 import { StorageService } from "./storage.service";
 import { LoginCredentials } from '../models/login-credentials.model';
 import { AuthResponse } from '../models/auth-response.model';
@@ -12,16 +10,16 @@ import { product } from '../models/product';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080/api/users/view/all';
+  private readonly http = inject(HttpClient);
+  private readonly baseUrl = 'http://localhost:8080/api/products/all';
+
   private storage = inject(StorageService);
 
   public currentUser = signal<User | null>(null);
   isAuthenticated = signal(false);
 
   getProdut(): Observable<product[]> {
-    return this.http.get(this.baseUrl).pipe(
-      map((res: any) => res.results));
+    return this.http.get<product[]>(this.baseUrl);
   }
 
 
