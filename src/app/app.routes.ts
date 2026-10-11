@@ -6,7 +6,6 @@ import { Routes } from '@angular/router';
 // import { LoansPage } from './features/loans/loans.page';
 // import { BookCreatePage } from './features/library/components/book-create/book-create.page';
 
-import { Login } from './features/login/login';
 import { authGuard } from './core/guard/auth-guard';
 import { adminGuard } from './core/guard/admin-guard';
 import { MainLayoutComponent } from './main-layout.component';
@@ -24,10 +23,6 @@ export const routes: Routes = [
     //  { path: 'library/new', component: BookCreatePage },
     //  { path: 'loans', component: LoansPage, canActivate: const [adminGuard] }
     ]
-  },
-  {
-    path: 'login',
-    component: Login
   },
   { path: '**', redirectTo: '' }
 ];

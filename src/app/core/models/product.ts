@@ -1,15 +1,16 @@
-export interface product {
-    uuid: string;
+export interface Product {
 
-    nameProduct: string;
+    uuid: string; // Identicador unico del producto
 
-    categoryProduct: string;
+    nameProduct: string; // Nombre del producto
+
+    categoryProduct: string; // Categoria del producto
     
-    description: string;
+    description: string; // Descripcion del producto
 
-    price: number;
+    price: number; // Precio del producto
 
-    stock: number;
+    stock: number; // Cantidad de productos disponibles
 
-    reference: string;
+    reference: string; // Referencia del producto
 }

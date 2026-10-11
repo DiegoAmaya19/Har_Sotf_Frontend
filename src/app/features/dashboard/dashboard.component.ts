@@ -1,6 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/services/auth.service'
 
 @Component({
   standalone: true,
@@ -8,11 +7,7 @@ import { AuthService } from '../../core/services/auth.service'
   imports: [CommonModule],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnInit {
-
-  protected readonly apiProduct = inject(AuthService);
-  protected products = signal<any[]>([]);
-  protected findProduct = signal<any | null>(null);
+export class DashboardComponent {
 
   stats = {
     topScore: 0,
@@ -20,20 +15,6 @@ export class DashboardComponent implements OnInit {
     hoursPlayed: 0,
   };
   progress = 0;
-
-  ngOnInit(): void {
-
-    this.apiProduct.getProdut().subscribe({
-      next: (p) => {
-        this.products.set(p);
-        console.log('Products fetched successfully:', p)
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-
-  }
 
   get progressColor() {
     return this.progress >= 75
