@@ -6,6 +6,7 @@
         </header>
 
         <form class="space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+
             <div class="grid gap-5 sm:grid-cols-2">
                 <div class="space-y-1.5">
                     <label for="reference" class="block text-sm font-medium text-slate-700">Referencia</label>
@@ -23,8 +24,8 @@
 
             <div class="space-y-1.5">
                 <label for="categoryProduct" class="block text-sm font-medium text-slate-700">Categoría</label>
-                <input id="categoryProduct" type="text" formControlName="categoryProduct" required
-                    placeholder="Ej. Accesorios"
+                <input id="categoryProduct" type="number" formControlName="categoryProduct" required
+                    placeholder="Ej. 1"
                     class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
             </div>
 

@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ProductRequestDTO, ProductService } from '../../../core/services/product.service';
+import { ProductService } from '../../../core/services/product.service';
+import { ProductRequestDTO } from '../../../core/models/DTOs/Request/productRequest';
 import {
     FormBuilder,
     ReactiveFormsModule,
@@ -15,36 +16,42 @@ import { finalize } from 'rxjs';
 export class ProductCreateComponent {
 
     private readonly fb = inject(FormBuilder);
-    protected readonly apiProduct = inject(ProductService);
+    protected readonly productService = inject(ProductService);
     protected readonly isSubmitting = signal(false);
 
     protected readonly form = this.fb.group({
-        uuid: ['', Validators.required],
-        nameProduct: ['', Validators.required],
-        categoryProduct: ['', Validators.required],
-        description: ['', Validators.required],
-        price: [null as number | null, [Validators.required, Validators.min(0)]],
-        stock: [null as number | null, [Validators.required, Validators.min(0)]],
-        reference: ['', Validators.required],
-    });
+    nameProduct: ['', Validators.required],
+    categoryProduct: [null as number | null, [Validators.required, Validators.min(1)]],
+    description: ['', Validators.required],
+    price: [null as number | null, [Validators.required, Validators.min(0)]],
+    stock: [null as number | null, [Validators.required, Validators.min(0)]],
+    reference: ['', Validators.required],
+});
 
 
     protected async onSubmit() {
 
-        const raw = this.form.value;
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
+            return;
+        }
+
+        const raw = this.form.getRawValue();
 
         const dto: ProductRequestDTO = {
             nameProduct: raw.nameProduct ?? '',
-            categoryProduct: raw.categoryProduct ?? '',
-            description: raw.description ?? '',
-            price: raw.price ?? 0,
+            idCategoryProduct: raw.categoryProduct ?? 0,
             stock: raw.stock ?? 0,
-            reference: raw.reference ?? '',
-        } as ProductRequestDTO;
+            productDetailsRequestDTO: {
+                description: raw.description ?? '',
+                price: raw.price ?? 0,
+                reference: raw.reference ?? '',
+            },
+        };
 
         this.isSubmitting.set(true);
 
-        this.apiProduct
+        this.productService
           .createProduct(dto)
           .pipe(
             finalize(() => this.isSubmitting.set(false))
