@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ProductService } from '../../core/services/product.service'
+import { ProductService } from '../product.service'
 
 @Component({
-    selector: 'app-product',
-    templateUrl: './product.component.html',
+    selector: 'app-product-read',
+    templateUrl: './product.read.html',
 })
-export class ProductComponent implements OnInit {
+export class ProductRead implements OnInit {
 
     protected readonly apiProduct = inject(ProductService);
     protected products = signal<any[]>([]);

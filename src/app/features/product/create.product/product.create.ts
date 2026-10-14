@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ProductService } from '../../../core/services/product.service';
+import { ProductService } from '../../product/product.service';
 import { ProductRequestDTO } from '../../../core/models/DTOs/Request/productRequest';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';

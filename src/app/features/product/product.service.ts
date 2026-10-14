@@ -1,8 +1,8 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { Product } from "../models/product";
-import { ProductRequestDTO } from "../models/DTOs/Request/productRequest";
+import { Product } from "../../core/models/product";
+import { ProductRequestDTO } from "../../core/models/DTOs/Request/productRequest";
 // import { environment } from "../../../environments/environment"; // pendiente para el environment variable
 
 
