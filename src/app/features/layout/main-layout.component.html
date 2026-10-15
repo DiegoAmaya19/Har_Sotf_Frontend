@@ -1,5 +1,5 @@
-<div class="flex h-screen">
-    <!-- Sidebar -->
+<!-- <div class="flex h-screen">
+
     <aside class="bg-gray-800 text-white w-64 flex-shrink-0 transition-all duration-300" [class.w-20]="isCollapsed()">
         <div class="p-4 text-center font-bold text-lg">
             @if (!isCollapsed()) {
@@ -10,9 +10,9 @@
         </div>
         <nav>
             <ul>
-                <li>
-                    <a routerLink="/dashboard" class="block py-2 px-4 hover:bg-gray-700">
-                        Dashboard
+                <li class="btn-product">
+                    <a routerLink="/productRead" class="block py-2 px-4 hover:bg-gray-700">
+                        Productos
                     </a>
                 </li>
                 <li>
@@ -32,19 +32,23 @@
         </button>
     </aside>
 
-    <!-- Main Content -->
+
     <div class="flex-1 flex flex-col">
-        <!-- Header -->
+   
         <header class="bg-gray-100 p-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold">GameTrackhfksdhfkjsfksh</h1>
+            <h1 class="text-xl font-bold">GameTrack</h1>
             <div class="flex items-center space-x-4">
                 <span>Perfil</span>
                 <img src="https://via.placeholder.com/40" alt="Perfil" class="rounded-full w-10 h-10" />
             </div>
         </header>
 
-        <!-- Content -->
+
         <main class="flex-1 p-4 bg-gray-50">
+            <router-outlet></router-outlet>
         </main>
     </div>
-</div>
+</div> -->
+
+
+<h1>El NUEVO LAYOUT</h1>

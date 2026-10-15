@@ -9,7 +9,7 @@ import { finalize } from 'rxjs';
   imports: [ReactiveFormsModule],
   templateUrl: './product-create.html',
 })
-export class ProductCreateComponent {
+export class ProductCreate {
   private readonly fb = inject(FormBuilder);
   protected readonly productService = inject(ProductService);
   protected readonly isSubmitting = signal(false);

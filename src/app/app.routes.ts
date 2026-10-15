@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 
 // import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { ProductRead } from './features/product/read.product/product.read';
+import { ProductCreate } from './features/product/create.product/product.create';
 import { MainLayoutComponent } from './features/layout/main-layout.component';
 
 import { authGuard } from './core/guard/auth-guard';
@@ -15,8 +16,9 @@ export const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'layout' },
       { path: 'layout', component: MainLayoutComponent },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'productRead', component: ProductRead }
     ]
   },
+  { path: 'productCreate', component: ProductCreate },
   { path: '**', redirectTo: '' }
 ];

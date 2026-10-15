@@ -1,9 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../product.service'
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-product-read',
     templateUrl: './product.read.html',
+    imports: [RouterModule],
+    styleUrl: './product.read.css',
 })
 export class ProductRead implements OnInit {
 
