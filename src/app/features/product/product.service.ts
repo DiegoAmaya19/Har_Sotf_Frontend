@@ -5,8 +5,6 @@ import { Product } from "../../core/models/product";
 import { ProductRequestDTO } from "../../core/models/DTOs/Request/productRequest";
 // import { environment } from "../../../environments/environment"; // pendiente para el environment variable
 
-
-
 @Injectable({ providedIn: "root" })
 export class ProductService {
 

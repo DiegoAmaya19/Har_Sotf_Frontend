@@ -1,25 +1,29 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
-
-import { MainLayoutComponent } from './main-layout.component';
+import { provideRouter} from '@angular/router';
+import { routes } from './app.routes'
 
 export const appConfig: ApplicationConfig = {
+
   providers: [
-    provideRouter([
-      {
-        path: '',
-        component: MainLayoutComponent,
-        children: [
-          // {
-          //   path: 'login',
-          //   component: Login
-          // }
-          // {
-          //   path: '**',
-          //   component: '**'
-          // }
-        ]
-      }
-    ], withComponentInputBinding())
+    provideRouter(routes)
   ]
+
+  // providers: [
+  //   provideRouter([
+  //     {
+  //       path: '',
+  //       component: DashboardComponent,
+  //       children: [
+  //         // {
+  //         //   path: 'login',
+  //         //   component: Login
+  //         // }
+  //         // {
+  //         //   path: '**',
+  //         //   component: '**'
+  //         // }
+  //       ]
+  //     }
+  //   ], withComponentInputBinding())
+  // ]
 };

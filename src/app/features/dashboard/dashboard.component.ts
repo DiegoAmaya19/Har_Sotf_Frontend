@@ -1,10 +1,8 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
-@Component({
-  standalone: true,
+@Component({  
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
