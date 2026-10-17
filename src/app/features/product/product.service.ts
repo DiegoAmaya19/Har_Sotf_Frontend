@@ -10,6 +10,7 @@ export class ProductService {
 
     private readonly baseUrlGet = `http://localhost:8080/api/products/all`; // Pendiente para el environment variable
     private readonly baseUrlCreate = `http://localhost:8080/api/products/register`; // Pendiente para el environment variable
+    private readonly baseUrlSearch = `http://localhost:8080/api/products/name?name=`; // Pendiente para el environment variable
 
     constructor(
         private readonly http: HttpClient
@@ -23,6 +24,11 @@ export class ProductService {
     // Metodo para obtener todos los productos
     readAllProducts(): Observable<Product[]> {
         return this.http.get<Product[]>(this.baseUrlGet);
+    }
+
+    // Metodo para obtener productos por nombre
+    searchProduct(name: string = ``): Observable<Product[]> {
+        return this.http.get<Product[]>(this.baseUrlSearch+name+`&page=0&size=3`);
     }
 
 }

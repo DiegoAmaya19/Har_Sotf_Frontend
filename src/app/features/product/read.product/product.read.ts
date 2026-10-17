@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../product.service'
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Product } from '../../../core/models/product';
 
 @Component({
     selector: 'app-product-read',
@@ -12,25 +13,35 @@ import { FormsModule } from '@angular/forms';
 export class ProductRead implements OnInit {
 
     protected readonly apiProduct = inject(ProductService);
-    protected products = signal<any[]>([]);
+    protected products = signal<Product[]>([]);
     protected findProduct = signal<any | null>(null);
     protected search = signal<string>('');
 
     ngOnInit(): void {
 
-        if (this.search().trim().length > 0) {
-            this.search().concat('dsd');
-        } else {
-            this.apiProduct.readAllProducts().subscribe({
-                next: (p) => {
-                    this.products.set(p);
-                    console.log('Products fetched successfully:', p)
-                },
-                error: (err) => {
-                    console.log(err);
-                }
-            });
-        }
+        this.apiProduct.readAllProducts().subscribe({
+            next: (p) => {
+                this.products.set(p);
+                console.log('Products fetched successfully:', p)
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+
+    }
+
+    onSearch(): void {
+
+
+        this.apiProduct.searchProduct(this.search()).subscribe({
+            next: (p) => {
+                this.products.set(p)
+            },
+            error: err => {
+                console.error(err);
+            }
+        })
 
     }
 

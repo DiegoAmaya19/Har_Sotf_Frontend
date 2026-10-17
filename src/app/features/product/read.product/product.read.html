@@ -8,7 +8,11 @@
       <button class="btn-secondary ml-6" routerLink="/productCreate">Eliminar Producto</button>
     </div>
       <div class="flex-column w-100 justify-content-start">
-      <input [(ngModel)]="search" type="text" placeholder="Buscar producto..."
+      <input 
+       [(ngModel)]="search"
+       (input)="onSearch()" 
+       type="text" 
+        placeholder="Buscar producto..."
         class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
     </div>
   </nav>
