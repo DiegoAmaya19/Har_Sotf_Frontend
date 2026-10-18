@@ -1,25 +1,47 @@
 <main class="pt-4 px-4">
 
-  <nav class="flex justify-between">
-    <div class="flex-column">
-      <button class="btn-secondary ml-6" routerLink="/productCreate">Crear Producto</button>
-      <button class="btn-secondary ml-6" routerLink="/productCreate">Actualizar Producto</button>
-      <button class="btn-secondary ml-6" routerLink="/productCreate">Ver Producto</button>
-      <button class="btn-secondary ml-6" routerLink="/productCreate">Eliminar Producto</button>
+  <nav aria-label="Navegación de productos"
+    class="mx-auto flex max-w-7xl flex-col gap-4 border-b border-slate-200 py-4 sm:px-2 lg:flex-row lg:items-center lg:justify-between">
+    <div class="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2">
+      <span class="mr-1 text-sm font-semibold text-slate-900">Productos</span>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <a routerLink="/productCreate"
+          class="relative py-2 text-sm font-medium text-slate-600 transition-colors after:absolute after:inset-x-0 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-teal-700 after:transition-transform hover:text-teal-800 hover:after:scale-x-100 focus-visible:rounded-sm focus-visible:text-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700">
+          Crear
+        </a>
+        <a routerLink="/productCreate"
+          class="relative py-2 text-sm font-medium text-slate-600 transition-colors after:absolute after:inset-x-0 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-teal-700 after:transition-transform hover:text-teal-800 hover:after:scale-x-100 focus-visible:rounded-sm focus-visible:text-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700">
+          Actualizar
+        </a>
+        <a routerLink="/productCreate"
+          class="relative py-2 text-sm font-medium text-slate-600 transition-colors after:absolute after:inset-x-0 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-teal-700 after:transition-transform hover:text-teal-800 hover:after:scale-x-100 focus-visible:rounded-sm focus-visible:text-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700">
+          Ver
+        </a>
+        <a routerLink="/productCreate"
+          class="relative py-2 text-sm font-medium text-slate-600 transition-colors after:absolute after:inset-x-0 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-teal-700 after:transition-transform hover:text-teal-800 hover:after:scale-x-100 focus-visible:rounded-sm focus-visible:text-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700">
+          Eliminar
+        </a>
+      </div>
     </div>
-      <div class="flex-column w-100 justify-content-start">
-      <input 
-       [(ngModel)]="search"
-       (input)="onSearch()" 
-       type="text" 
-        placeholder="Buscar producto..."
-        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+
+    <div class="w-full lg:max-w-xs">
+      <label for="product-search" class="sr-only">
+        Buscar productos
+      </label>
+      <div class="relative">
+        <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"
+          class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400">
+          <circle cx="8.75" cy="8.75" r="5.75" stroke="currentColor" stroke-width="1.5" />
+          <path d="m13 13 4 4" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" />
+        </svg>
+        <input id="product-search" name="productSearch" [(ngModel)]="searched" (input)="onSearch()" type="search"
+          placeholder="Buscar productos..."
+          class="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-sm text-slate-800 transition-colors placeholder:text-slate-400 focus:border-teal-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-700/20">
+      </div>
     </div>
   </nav>
 
-  <p>{{search()}}</p>
-
-  <section class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+  <section class="mx-auto max-w-7xl px-2 py-8 sm:px-4">
     <header class="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 pb-5">
       <div>
         <p class="mb-2 text-xs font-bold uppercase tracking-widest text-teal-700">

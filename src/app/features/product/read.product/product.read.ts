@@ -15,7 +15,7 @@ export class ProductRead implements OnInit {
     protected readonly apiProduct = inject(ProductService);
     protected products = signal<Product[]>([]);
     protected findProduct = signal<any | null>(null);
-    protected search = signal<string>('');
+    protected searched = signal<string>('');
 
     ngOnInit(): void {
 
@@ -24,24 +24,17 @@ export class ProductRead implements OnInit {
                 this.products.set(p);
                 console.log('Products fetched successfully:', p)
             },
-            error: (err) => {
-                console.log(err);
-            }
+            error: (err) => console.log(err)
         });
 
     }
 
     onSearch(): void {
 
-
-        this.apiProduct.searchProduct(this.search()).subscribe({
-            next: (p) => {
-                this.products.set(p)
-            },
-            error: err => {
-                console.error(err);
-            }
-        })
+        this.apiProduct.searchProduct(this.searched()).subscribe({
+            next: (p) => this.products.set(p ?? []),
+            error: err => console.error(err)
+        });
 
     }
 
