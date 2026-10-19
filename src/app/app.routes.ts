@@ -13,11 +13,17 @@ export const routes: Routes = [
     path: '',
     // canActivateChild: [authGuard, adminGuard],
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'productRead' },
-      { path: 'productRead', component: ProductRead }
-    ]
+      { path: '', pathMatch: 'full', redirectTo: 'productMain' },
+      {
+        path: 'productMain', component: ProductMain,
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'productRead'},
+          { path: 'productRead', component: ProductRead },
+          { path: 'productCreate', component: ProductCreate },
+        ]
+      },
+],
   },
-  { path: 'productCreate', component: ProductCreate },
-  { path: 'productMain', component: ProductMain },
-  { path: '**', redirectTo: '' }
+
+{ path: '**', redirectTo: '' }
 ];

@@ -3,8 +3,8 @@ import { RouterModule } from "@angular/router";
 
 @Component({
     selector: 'product-main',
-    templateUrl: 'product.main.html',
-    imports: [RouterModule]
+    imports: [RouterModule],
+    templateUrl: 'product.main.html'
 })
 export class ProductMain {
 
