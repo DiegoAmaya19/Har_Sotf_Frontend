@@ -1,28 +1,45 @@
-import { Injectable, inject } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from "../../core/models/product";
-// import { ProductRequestDTO } from "../../core/models/DTOs/Request/productRequest";
-// import { environment } from "../../../environments/environment"; // pendiente para el environment variable
 
-@Injectable({ providedIn: "root" })
-export class ProductService {
+interface LoginRequestDTO {
+  username: string;
+  password: string;
+}
 
-    private readonly baseUrlGet = `http://localhost:8080/api/products/all`; // Pendiente para el environment variable
-    private readonly baseUrlCreate = `http://localhost:8080/api/products/register`; // Pendiente para el environment variable
+interface LoginResponseDTO {
+  token: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    role: 'PLAYER' | 'ADMIN';
+  };
+}
 
-    constructor(
-        private readonly http: HttpClient
-    ) { }
+@Injectable({ providedIn: 'root' })
+export class LoginService {
+  private readonly baseUrlLogin = `http://localhost:8080/api/auth/login`; // Pendiente para el environment variable
+  private readonly baseUrlForgotPassword = `http://localhost:8080/api/auth/forgot-password`; // Pendiente para el environment variable
+  private readonly baseUrlChangePassword = `http://localhost:8080/api/auth/change-password`; // Pendiente para el environment variable
 
-    // Metodo para crear un nuevo producto
-    createProduct(dto: ProductRequestDTO): Observable<Product> {
-        return this.http.post<Product>(this.baseUrlCreate, dto);
-    }
+  private readonly http = inject(HttpClient);
 
-    // Metodo para obtener todos los productos
-    readAllProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>(this.baseUrlGet);
-    }
+  // Método para iniciar sesión
+  login(dto: LoginRequestDTO): Observable<LoginResponseDTO> {
+    return this.http.post<LoginResponseDTO>(this.baseUrlLogin, dto);
+  }
 
+  // Método para recuperar contraseña
+  forgotPassword(email: string): Observable<void> {
+    return this.http.post<void>(this.baseUrlForgotPassword, { email });
+  }
+
+  // Método para cambiar contraseña
+  changePassword(currentPassword: string, newPassword: string): Observable<void> {
+    return this.http.post<void>(this.baseUrlChangePassword, {
+      currentPassword,
+      newPassword,
+    });
+  }
 }
