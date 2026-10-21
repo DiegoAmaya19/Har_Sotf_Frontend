@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Component } from '@angular/core';
 interface LoginRequestDTO {
   username: string;
   password: string;
@@ -16,6 +16,7 @@ interface LoginResponseDTO {
     role: 'PLAYER' | 'ADMIN';
   };
 }
+
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {

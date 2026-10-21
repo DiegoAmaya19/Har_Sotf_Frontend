@@ -1,4 +1,3 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -17,29 +16,28 @@ interface LoginResponseDTO {
   };
 }
 
-@Injectable({ providedIn: 'root' })
+
 export class LoginService {
   private readonly baseUrlLogin = `http://localhost:8080/api/auth/login`; // Pendiente para el environment variable
   private readonly baseUrlForgotPassword = `http://localhost:8080/api/auth/forgot-password`; // Pendiente para el environment variable
   private readonly baseUrlChangePassword = `http://localhost:8080/api/auth/change-password`; // Pendiente para el environment variable
 
-  private readonly http = inject(HttpClient);
 
   // Método para iniciar sesión
-  login(dto: LoginRequestDTO): Observable<LoginResponseDTO> {
-    return this.http.post<LoginResponseDTO>(this.baseUrlLogin, dto);
-  }
+  //login(dto: LoginRequestDTO): Observable<LoginResponseDTO> {
+ //   return this.http.post<LoginResponseDTO>(this.baseUrlLogin, dto);
+ // }
 
   // Método para recuperar contraseña
-  forgotPassword(email: string): Observable<void> {
-    return this.http.post<void>(this.baseUrlForgotPassword, { email });
-  }
+ // forgotPassword(email: string): Observable<void> {
+   // return this.http.post<void>(this.baseUrlForgotPassword, { email });
+ // }
 
   // Método para cambiar contraseña
-  changePassword(currentPassword: string, newPassword: string): Observable<void> {
-    return this.http.post<void>(this.baseUrlChangePassword, {
-      currentPassword,
-      newPassword,
-    });
-  }
+//  changePassword(currentPassword: string, newPassword: string): Observable<void> {
+    //return this.http.post<void>(this.baseUrlChangePassword, {
+   //   currentPassword,
+    //  newPassword,
+ //   });
+//  }
 }
