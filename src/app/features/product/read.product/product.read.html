@@ -20,7 +20,7 @@
         </div>
     </nav>
 
-    <section class="mx-auto max-w-7xl px-2 py-8 sm:px-4">
+    <section class=" mx-auto max-w-7xl px-2 py-8 sm:px-4">
         <header class="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 pb-5">
             <div>
                 <p class="mb-2 text-xs font-bold uppercase tracking-widest text-teal-700">
@@ -33,6 +33,8 @@
                 {{ products().length }} resultados
             </p>
         </header>
+
+        <p>Esto es la cantidad de productos {{acountProduct()}}</p>
 
         @if (products().length > 0) {
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -79,5 +81,44 @@
             <p class="mt-2 text-sm text-slate-600">La API no devolvió resultados.</p>
         </div>
         }
+
+        <nav aria-label="Paginación de productos"
+            class="mt-8 flex flex-col items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm sm:flex-row">
+            <div class="flex items-center gap-3">
+                <label for="page-size" class="text-sm font-medium text-slate-600">
+                    Productos por página
+                </label>
+                <select id="page-size" [ngModel]="pageSize()" (ngModelChange)="updatePageSize($event)"
+                    class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20">
+                    <option [ngValue]="3">3</option>
+                    <option [ngValue]="6">6</option>
+                    <option [ngValue]="9">9</option>
+                    <option [ngValue]="12">12</option>
+                    <option [ngValue]="18">18</option>
+                </select>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button type="button" aria-label="Ir a la página anterior" (click)="goToPreviousPage()"
+                    [disabled]="pageIndex() === 0"
+                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-slate-700 transition-colors hover:border-teal-700 hover:bg-teal-50 hover:text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-700/30 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-white disabled:hover:text-slate-700">
+                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="h-5 w-5">
+                        <path d="m12.5 4.5-5 5.5 5 5.5" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.8" />
+                    </svg>
+                </button>
+                <p aria-live="polite" class="min-w-24 text-center text-sm font-semibold text-slate-700">
+                    Página {{ pageIndex() + 1 }}
+                </p>
+                <button type="button" aria-label="Ir a la página siguiente" (click)="goToNextPage()"
+                    
+                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-slate-700 transition-colors hover:border-teal-700 hover:bg-teal-50 hover:text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-700/30">
+                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="h-5 w-5">
+                        <path d="m7.5 4.5 5 5.5-5 5.5" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.8" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
     </section>
 </main>
