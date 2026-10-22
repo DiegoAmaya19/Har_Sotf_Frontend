@@ -111,8 +111,8 @@
                     Página {{ pageIndex() + 1 }}
                 </p>
                 <button type="button" aria-label="Ir a la página siguiente" (click)="goToNextPage()"
-                    
-                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-slate-700 transition-colors hover:border-teal-700 hover:bg-teal-50 hover:text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-700/30">
+                    [disabled]="pageIndex() === limPageIndex()"
+                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-slate-700 transition-colors hover:border-teal-700 hover:bg-teal-50 hover:text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-700/30 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-white disabled:hover:text-slate-700">
                     <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="h-5 w-5">
                         <path d="m7.5 4.5 5 5.5-5 5.5" stroke="currentColor" stroke-linecap="round"
                             stroke-linejoin="round" stroke-width="1.8" />
@@ -121,4 +121,17 @@
             </div>
         </nav>
     </section>
+
+    <div>
+        <h1 class="font-monospace">Category Product</h1>
+        <select id="category-product" [ngModel]="optionSelected()" (ngModelChange)="onCategoryProduct($event)"
+            class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20">
+            @for (category of categoryProducts(); track category.idCategoryProduct) {
+            <option [ngValue]="category.nameCategoryProduct">{{category.nameCategoryProduct}}</option>
+            }
+        </select>
+    </div>
+    <p>Seleccion
+        
+        {{optionSelected()}}</p>
 </main>

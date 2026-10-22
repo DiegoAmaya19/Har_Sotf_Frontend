@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Product } from "../../core/models/product";
 import { ProductRequestDTO } from "../../core/models/DTOs/Request/productRequest";
-// import { environment } from "../../../environments/environment"; // pendiente para el environment variable
 
 @Injectable({ providedIn: "root" })
 export class ProductService {
@@ -12,7 +11,6 @@ export class ProductService {
     private readonly baseUrlCreate = `http://localhost:8080/api/products/register`; // Pendiente para el environment variable
     private readonly baseUrlSearch = `http://localhost:8080/api/products/name?name=`; // Pendiente para el environment variable
     private readonly baseUrlAcount = `http://localhost:8080/api/products/count`;
-    private readonly baseUrlTypeProduct = `http://localhost:8080/api/products/categoryproduct/`;
 
     constructor(
         private readonly http: HttpClient
