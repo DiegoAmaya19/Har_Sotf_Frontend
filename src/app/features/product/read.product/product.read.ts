@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Product } from '../../../core/models/product';
 import { CategoryProductService } from '../../categoryProduct/category.product.service';
 import { Categoryproduct } from '../../../core/models/categoryProduct';
+import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 
 @Component({
     selector: 'app-product-read',
@@ -22,13 +23,13 @@ export class ProductRead implements OnInit {
     protected pageSize = signal<number>(3);
     protected acountProduct = signal<number>(0);
     protected categoryProducts = signal<Categoryproduct[]>([]);
-    // protected optionSelected = signal<string | undefined>('');
     protected limPageIndex = computed(() =>
         Math.floor(this.acountProduct() / this.pageSize())
     );
     protected optionSelected = linkedSignal(
         () => this.categoryProducts().at(0)?.nameCategoryProduct ?? ''
     );
+    protected btnDish = signal<boolean>(false);
 
     ngOnInit(): void {
         this.onCountProduct();
@@ -88,6 +89,13 @@ export class ProductRead implements OnInit {
 
     onCategoryProduct(optSelected: string): void {
         this.optionSelected.set(optSelected);
+
+        this.btnDish.set(true);
+
+        this.apiProduct.getProductForCategory(optSelected).subscribe({
+            next: p => this.products.set(p),
+            error: err => console.error(err)
+        })
     }
 
 }
