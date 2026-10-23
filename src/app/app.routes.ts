@@ -7,8 +7,8 @@ import { ProductCreate } from './features/product/create.product/product.create'
 import { LoginWeb } from './features/login/login';
 //import { UserCreate } from './features/login/create.user/user.create';
 import { authGuard } from './core/guard/auth-guard';
-import { adminGuard } from './core/guard/admin-guard';
-
+//import { adminGuard } from './core/guad/admin-guard';
+import { SwitchPasswordComponent } from './features/login/switchpassword/switch-password';
 
 export const routes: Routes = [
   {
@@ -24,7 +24,8 @@ export const routes: Routes = [
   { path: '**', redirectTo: '' },
 
   { path: 'loginWeb', component: LoginWeb },
+  { path: '**', redirectTo: '' },
+  { path: 'switchpassword', component: SwitchPasswordComponent },
   { path: '**', redirectTo: '' }
-
   
 ];
