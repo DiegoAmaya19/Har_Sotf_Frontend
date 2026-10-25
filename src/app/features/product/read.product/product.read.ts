@@ -1,18 +1,20 @@
-import { Component, computed, inject, linkedSignal, OnInit, signal } from '@angular/core';
+import { Component, computed, EventEmitter, inject, linkedSignal, OnInit, Output, signal } from '@angular/core';
 import { ProductService } from '../product.service'
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../../core/models/product';
 import { CategoryProductService } from '../../categoryProduct/category.product.service';
 import { Categoryproduct } from '../../../core/models/categoryProduct';
-import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-product-read',
     templateUrl: './product.read.html',
-    imports: [FormsModule],
+    imports: [FormsModule, RouterLink],
     styleUrl: './product.read.css',
 })
 export class ProductRead implements OnInit {
+
+    @Output() productUpdateEvent = new EventEmitter<Product>();
 
     protected readonly apiProduct = inject(ProductService);
     protected readonly apiCategoryProduct = inject(CategoryProductService);
@@ -96,6 +98,10 @@ export class ProductRead implements OnInit {
             next: p => this.products.set(p),
             error: err => console.error(err)
         })
+    }
+
+    onUpdateProduct(product: Product) {
+        this.productUpdateEvent.emit(product);
     }
 
 }
