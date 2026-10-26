@@ -89,8 +89,7 @@
                 <p class="mt-3 break-all border-t border-slate-100 pt-3 text-xs text-slate-500">
                     ID: {{ product.uuid }}
                 </p>
-                <a routerLink="/productCreate" class="cursor-pointer" (click)="onUpdateProduct(product)">Editar</a>
-                <button [routerLink]="['/productUpdate',product.uuid]" class="bg-primary cursor-pointer">Editar</button>
+                <button [routerLink]="['/productUpdate',product.uuid]" class="btn-secondary cursor-pointer">Editar</button>
             </article>
             }
         </div>

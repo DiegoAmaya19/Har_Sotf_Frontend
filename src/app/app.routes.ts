@@ -26,6 +26,6 @@ export const routes: Routes = [
     ],
   },
   { path: 'productUpdate/:uuid', component: ProductUpdate },
-
+  
   { path: '**', redirectTo: '' }
 ];
