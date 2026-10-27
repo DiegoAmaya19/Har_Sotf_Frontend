@@ -73,6 +73,7 @@ export class ProductUpdate implements OnInit {
     }
 
     private selectProductCategory(): void {
+
         const product = this.product();
         if (!product || this.categoryProducts().length === 0) {
             return;
