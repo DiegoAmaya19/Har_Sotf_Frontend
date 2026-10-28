@@ -13,6 +13,10 @@ export class ProductCreate {
     private readonly fb = inject(FormBuilder);
     protected readonly productService = inject(ProductService);
     protected readonly isSubmitting = signal(false);
+    protected readonly notification = signal<{
+        kind: 'success' | 'error';
+        message: string;
+    } | null>(null);
 
     protected readonly form = this.fb.group({
         nameProduct: ['', Validators.required],
@@ -23,8 +27,7 @@ export class ProductCreate {
         reference: ['', Validators.required],
     });
 
-    protected async onSubmit() {
-
+    protected onSubmit(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
@@ -44,17 +47,30 @@ export class ProductCreate {
         };
 
         this.isSubmitting.set(true);
+        this.notification.set(null);
 
         this.productService
             .createProduct(dto)
             .pipe(finalize(() => this.isSubmitting.set(false)))
             .subscribe({
                 next: () => {
-                    console.log('Producto creado exitosamente');
+                    this.form.reset();
+                    this.notification.set({
+                        kind: 'success',
+                        message: 'El producto se creó correctamente.',
+                    });
                 },
                 error: (error) => {
-                    console.error('Error al crear el libro', error);
+                    console.error('Error al crear el producto', error);
+                    this.notification.set({
+                        kind: 'error',
+                        message: 'No se pudo crear el producto. Inténtalo de nuevo.',
+                    });
                 },
             });
+    }
+
+    protected dismissNotification(): void {
+        this.notification.set(null);
     }
 }
