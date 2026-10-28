@@ -104,4 +104,20 @@ export class ProductRead implements OnInit {
         this.productUpdateEvent.emit(product);
     }
 
+    protected async onDelete(uuid: string) {
+
+        this.apiProduct
+            .delete(uuid)
+            .subscribe({
+                next: () => {
+                    this.getAll();
+                    this.onCountProduct();
+                    console.log('Producto eliminado exitosamente');
+                },
+                error: (error) => {
+                    console.error('Error al eliminar el producto', error);
+                },
+            });
+    }
+
 }

@@ -49,7 +49,7 @@ export class ProductService {
     return this.http.put<Product>(this.baseUrlUpdate + uuid, dto);
   }
 
-  delete(uuid: string | null): Observable<null> {
-    return this.http.delete<null>(this.baseUrlUpdate + uuid);
+  delete(uuid: string): Observable<null> {
+    return this.http.delete<null>(this.baseUrlDelete + uuid);
   }
 }
