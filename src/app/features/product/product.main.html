@@ -1,0 +1,20 @@
+<main class="pt-4 px-4">
+    <nav aria-label="Navegación de productos"
+        class="flex max-w-7xl flex-wrap items-center justify-between gap-4 border-b border-slate-200 py-4">
+        <div class="flex flex-wrap items-center gap-5">
+            <span class="font-semibold text-slate-900">Productos</span>
+            <div
+                class="flex flex-wrap gap-5 [&_a]:relative [&_a]:py-2 [&_a]:text-sm [&_a]:font-medium [&_a]:text-slate-600 [&_a]:transition-colors [&_a]:after:absolute [&_a]:after:inset-x-0 [&_a]:after:bottom-1 [&_a]:after:h-0.5 [&_a]:after:origin-left [&_a]:after:scale-x-0 [&_a]:after:rounded-full [&_a]:after:bg-teal-700 [&_a]:after:transition-transform [&_a:hover]:text-teal-800 [&_a:hover]:after:scale-x-100 [&_a:focus-visible]:after:scale-x-100">
+                <a routerLink="productCreate"
+                    class="cursor-pointer">
+                    Crear
+                </a>
+                <a routerLink="productRead"
+                    class="cursor-pointer">
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+</main>

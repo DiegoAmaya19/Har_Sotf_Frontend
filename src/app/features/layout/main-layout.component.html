@@ -1,105 +1,14 @@
 <div class="flex h-dvh min-w-0 flex-col overflow-hidden bg-slate-50 md:flex-row">
-  <aside
-    class="hidden h-full shrink-0 flex-col border-r border-slate-200 bg-slate-900 text-white transition-[width] duration-200 md:flex"
-    [class.w-20]="isCollapsed()"
-    [class.w-64]="!isCollapsed()"
-  >
-    <a
-      routerLink="/productRead"
-      class="flex h-16 shrink-0 items-center justify-center overflow-hidden whitespace-nowrap border-b border-slate-700 px-4 text-base font-bold tracking-wide text-white"
-    >
-      @if (isCollapsed()) {
-        <span aria-hidden="true">GT</span>
-      } @else {
-        <span>GameTrack</span>
-      }
-    </a>
-
-    <nav aria-label="" class="flex-1 overflow-y-auto p-3">
-      <ul class="space-y-1">
-        <li>
-          <a
-            routerLink="/productRead"
-            routerLinkActive="bg-indigo-600 text-white"
-            ariaCurrentWhenActive="page"
-            aria-label="Productos"
-            title="Productos"
-            class="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-slate-200 transition hover:bg-slate-800 hover:text-white"
-            [class.justify-center]="isCollapsed()"
-            [class.justify-start]="!isCollapsed()"
-          >
+    <aside
+        class="hidden h-full shrink-0 flex-col border-r border-slate-200 bg-slate-900 text-white transition-[width] duration-200 md:flex"
+        [class.w-20]="isCollapsed()" [class.w-64]="!isCollapsed()">
+        <a routerLink="/productRead"
+            class="flex h-16 shrink-0 items-center justify-center overflow-hidden whitespace-nowrap border-b border-slate-700 px-4 text-base font-bold tracking-wide text-white">
             @if (isCollapsed()) {
-              <span aria-hidden="true">P</span>
+            <span aria-hidden="true">GT</span>
             } @else {
-              <span>Productos</span>
+            <span>GameTrack</span>
             }
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/productCreate"
-            routerLinkActive="bg-indigo-600 text-white"
-            ariaCurrentWhenActive="page"
-            aria-label="Crear producto"
-            title="Crear producto"
-            class="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-slate-200 transition hover:bg-slate-800 hover:text-white"
-            [class.justify-center]="isCollapsed()"
-            [class.justify-start]="!isCollapsed()"
-          >
-            @if (isCollapsed()) {
-              <span aria-hidden="true">+</span>
-            } @else {
-              <span>Crear producto</span>
-            }
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="flex shrink-0 justify-end border-t border-slate-700 p-3">
-      <button
-        type="button"
-        (click)="toggleSidebar()"
-        [attr.aria-label]="isCollapsed() ? 'Expandir navegación' : 'Contraer navegación'"
-        [attr.aria-expanded]="!isCollapsed()"
-        class="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-sm font-medium text-white transition hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
-      >
-        @if (isCollapsed()) {
-          <span aria-hidden="true">»</span>
-        } @else {
-          <span>«</span>
-        }
-      </button>
-    </div>
-  </aside>
-
-  <div class="flex min-h-0 min-w-0 flex-1 flex-col">
-    <header class="shrink-0 border-b border-slate-200 bg-white px-4 py-3 shadow-sm sm:px-6 md:py-4">
-      <div class="flex items-center justify-between">
-        <a
-          routerLink="/productRead"
-          class="text-lg font-bold tracking-tight text-slate-900 md:text-xl"
-          >GameTrack</a
-        >
-        <span class="text-sm font-medium text-slate-600">Panel de administración</span>
-      </div>
-
-      <!-- <nav aria-label="Navegación principal" class="mt-3 flex gap-2 overflow-x-auto md:hidden">
-        <a
-          routerLink="/productRead"
-          routerLinkActive="ring-2 ring-inset ring-indigo-600 font-semibold"
-          ariaCurrentWhenActive="page"
-          class="min-h-11 shrink-0 rounded-lg bg-slate-100 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-200"
-        >
-          Productos
-        </a>
-        <a
-          routerLink="/productCreate"
-          routerLinkActive="ring-2 ring-inset ring-indigo-600 font-semibold"
-          ariaCurrentWhenActive="page"
-          class="min-h-11 shrink-0 rounded-lg bg-slate-100 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-200"
-        >
-          Crear producto
         </a>
       </nav> -->
 
@@ -115,4 +24,58 @@
       Inicio
     </button>
   </div>
+</div>
+        <nav aria-label="" class="flex-1 overflow-y-auto p-3">
+            <ul class="space-y-1">
+                <li>
+                    <a routerLink="productMain" routerLinkActive="bg-indigo-600 text-white"
+                        ariaCurrentWhenActive="page" aria-label="Productos" title="Productos"
+                        class="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-slate-200 transition hover:bg-slate-800 hover:text-white"
+                        [class.justify-center]="isCollapsed()" [class.justify-start]="!isCollapsed()">
+                        @if (isCollapsed()) {
+                        <span aria-hidden="true">P</span>
+                        } @else {
+                        <span>Productos</span>
+                        }
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="productCreate" routerLinkActive="bg-indigo-600 text-white"
+                        ariaCurrentWhenActive="page" aria-label="Crear producto" title="Crear producto"
+                        class="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-slate-200 transition hover:bg-slate-800 hover:text-white"
+                        [class.justify-center]="isCollapsed()" [class.justify-start]="!isCollapsed()">
+                        @if (isCollapsed()) {
+                        <span aria-hidden="true">+</span>
+                        } @else {
+                        <span>Crear producto</span>
+                        }
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="flex shrink-0 justify-end border-t border-slate-700 p-3">
+            <button type="button" (click)="toggleSidebar()"
+                [attr.aria-label]="isCollapsed() ? 'Expandir navegación' : 'Contraer navegación'"
+                [attr.aria-expanded]="!isCollapsed()"
+                class="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-sm font-medium text-white transition hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400">
+                @if (isCollapsed()) {
+                <span aria-hidden="true">»</span>
+                } @else {
+                <span>«</span>
+                }
+            </button>
+        </div>
+    </aside>
+    <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+        <header class="shrink-0 border-b border-slate-200 bg-white px-4 py-3 shadow-sm sm:px-6 md:py-4">
+            <div class="flex items-center justify-between">
+                <a routerLink="/productRead"
+                    class="text-lg font-bold tracking-tight text-slate-900 md:text-xl">GameTrack</a>
+                <span class="text-sm font-medium text-slate-600">Panel de administración</span>
+            </div>
+        </header>
+        <main class="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
 </div>

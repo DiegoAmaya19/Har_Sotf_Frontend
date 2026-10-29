@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 
 // import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
-import { ProductRead } from './features/product/read.product/product.read';
+import { ProductMain } from './features/product/product.main';
 import { ProductCreate } from './features/product/create.product/product.create';
+import { ProductRead } from './features/product/read.product/product.read';
+import { ProductUpdate } from './features/product/update.product/product.update';
 
 import { LoginWeb } from './features/login/login';
 //import { UserCreate } from './features/login/create.user/user.create';
@@ -26,6 +28,19 @@ export const routes: Routes = [
   { path: 'loginWeb', component: LoginWeb },
   { path: '**', redirectTo: '' },
   { path: 'switchpassword', component: SwitchPasswordComponent },
+      { path: '', pathMatch: 'full', redirectTo: 'productMain' },
+      {
+        path: 'productMain', component: ProductMain,
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'productRead' },
+          { path: 'productCreate', component: ProductCreate },
+          { path: 'productRead', component: ProductRead },
+        ]
+      },
+    ],
+  },
+  { path: 'productUpdate/:uuid', component: ProductUpdate },
+  
   { path: '**', redirectTo: '' }
   
 ];
