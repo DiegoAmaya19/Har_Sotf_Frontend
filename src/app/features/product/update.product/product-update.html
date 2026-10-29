@@ -1,68 +1,180 @@
+<!-- Muestra errores de carga o actualización para que sean visibles al usuario. -->
 @if (loadError()) {
-<p role="alert">{{ loadError() }}</p>
+  <p role="alert">{{ loadError() }}</p>
 }
 
+<!-- Contenedor principal del formulario de edición del producto. -->
 <section class="mx-auto w-full min-w-0 max-w-5xl px-4 py-8 sm:px-6">
-    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <header class="mb-7">
-            <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Crear producto</h1>
-            <p class="mt-2 text-sm text-slate-600">Completa los datos para registrar un nuevo producto.</p>
-        </header>
+  <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <!-- Título e indicación general del formulario. -->
+    <header class="mb-7">
+      <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Editar producto</h1>
+      <p class="mt-2 text-sm text-slate-600">
+        Actualiza los datos del producto y guarda los cambios.
+      </p>
+    </header>
 
-        <form class="grid gap-5 md:grid-cols-2" [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="space-y-1.5">
-                <label for="reference" class="block text-sm font-medium text-slate-700">Referencia</label>
-                <input id="reference" type="text" formControlName="reference" required placeholder="Ej. PROD-001"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
-            </div>
+    <!-- Formulario reactivo: reúne los datos del producto y envía los cambios al guardar. -->
+    <form class="grid gap-5 md:grid-cols-2" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Campo para ingresar la referencia del producto. -->
+      <div class="space-y-1.5">
+        <label for="reference" class="block text-sm font-medium text-slate-700">Referencia</label>
+        <input
+          id="reference"
+          type="text"
+          formControlName="reference"
+          required
+          placeholder="Ej. PROD-001"
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        />
+      </div>
 
-            <div class="space-y-1.5">
-                <label for="nameProduct" class="block text-sm font-medium text-slate-700">Nombre del producto</label>
-                <input id="nameProduct" type="text" formControlName="nameProduct" required
-                    placeholder="Ej. Teclado inalámbrico"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
-            </div>
+      <!-- Campo para ingresar el nombre del producto. -->
+      <div class="space-y-1.5">
+        <label for="nameProduct" class="block text-sm font-medium text-slate-700"
+          >Nombre del producto</label
+        >
+        <input
+          id="nameProduct"
+          type="text"
+          formControlName="nameProduct"
+          required
+          placeholder="Ej. Teclado inalámbrico"
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        />
+      </div>
 
-            <div class="space-y-1.5">
-                <label for="category-product" class="block text-sm font-medium text-slate-700">Categoría</label>
-                <select id="category-product" formControlName="categoryProduct" required
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20">
-                    <option [ngValue]="null" disabled>Selecciona una categoría</option>
-                    @for (category of categoryProducts(); track category.idCategoryProduct) {
-                    <option [ngValue]="category.nameCategoryProduct">{{category.nameCategoryProduct}}</option>
-                    }
-                </select>
-            </div>
+      <div class="space-y-1.5">
+        <label for="category-product" class="block text-sm font-medium text-slate-700"
+          >Categoría</label
+        >
+        <select
+          id="category-product"
+          formControlName="categoryProduct"
+          required
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm focus:border-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-700/20"
+        >
+          <option [ngValue]="null" disabled>Selecciona una categoría</option>
+          <!-- Opciones de categoría cargadas desde la lista disponible. -->
+          @for (category of categoryProducts(); track category.idCategoryProduct) {
+            <option [ngValue]="category.nameCategoryProduct">
+              {{ category.nameCategoryProduct }}
+            </option>
+          }
+        </select>
+      </div>
 
-            <div class="space-y-1.5">
-                <label for="price" class="block text-sm font-medium text-slate-700">Precio</label>
-                <input id="price" type="number" formControlName="price" min="0" step="0.01" required placeholder="0.00"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
-            </div>
+      <!-- Campo numérico para indicar el precio del producto. -->
+      <div class="space-y-1.5">
+        <label for="price" class="block text-sm font-medium text-slate-700">Precio</label>
+        <input
+          id="price"
+          type="number"
+          formControlName="price"
+          min="0"
+          step="0.01"
+          required
+          placeholder="0.00"
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        />
+      </div>
 
-            <div class="space-y-1.5">
-                <label for="stock" class="block text-sm font-medium text-slate-700">Stock</label>
-                <input id="stock" type="number" formControlName="stock" min="0" step="1" required placeholder="0"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
-            </div>
+      <!-- Campo numérico para registrar las unidades disponibles en inventario. -->
+      <div class="space-y-1.5">
+        <label for="stock" class="block text-sm font-medium text-slate-700">Stock</label>
+        <input
+          id="stock"
+          type="number"
+          formControlName="stock"
+          min="0"
+          step="1"
+          required
+          placeholder="0"
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        />
+      </div>
 
-            <div class="space-y-1.5">
-                <label for="description" class="block text-sm font-medium text-slate-700">Descripción</label>
-                <textarea id="description" formControlName="description" required rows="3"
-                    placeholder="Describe brevemente el producto"
-                    class="w-full resize-y rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"></textarea>
-            </div>
+      <!-- Área de texto para la descripción del producto. -->
+      <div class="space-y-1.5">
+        <label for="description" class="block text-sm font-medium text-slate-700"
+          >Descripción</label
+        >
+        <textarea
+          id="description"
+          formControlName="description"
+          required
+          rows="3"
+          placeholder="Describe brevemente el producto"
+          class="w-full resize-y rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+        ></textarea>
+      </div>
 
-            <div class="flex justify-end border-t border-slate-100 pt-5 md:col-span-2">
-                <button type="submit" [disabled]="form.invalid || isSubmitting()"
-                    class="inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none disabled:active:scale-100">
-                    @if (isSubmitting()) {
-                    Guardando...
-                    } @else {
-                    Actualizar producto
-                    }
-                </button>
-            </div>
-        </form>
-    </div>
+      <!-- Acciones para cancelar y guardar los cambios del producto. -->
+      <div class="flex justify-between border-t border-slate-100 pt-5 md:col-span-2">
+        <button
+          type="button"
+          [routerLink]="['/productMain', 'productRead']"
+          class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path
+              d="M19 12H5m0 0 7 7m-7-7 7-7"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.8"
+            />
+          </svg>
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          [disabled]="form.invalid || isSubmitting()"
+          class="inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none disabled:active:scale-100"
+        >
+          @if (isSubmitting()) {
+            Guardando...
+          } @else {
+            Actualizar producto
+          }
+        </button>
+      </div>
+    </form>
+
+    <!-- El diálogo se abre únicamente cuando la API confirma que se actualizó el producto. -->
+    <dialog
+      #updateSuccessDialog
+      aria-labelledby="update-success-title"
+      aria-describedby="update-success-description"
+      class="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl backdrop:bg-slate-950/60"
+    >
+      <div class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+            <path
+              d="m5 12 4 4L19 6"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </svg>
+        </div>
+        <h2 id="update-success-title" class="mt-4 text-lg font-semibold text-slate-900">
+          Producto actualizado
+        </h2>
+        <p id="update-success-description" class="mt-2 text-sm text-slate-600">
+          El producto se actualizó correctamente.
+        </p>
+        <button
+          type="button"
+          autofocus
+          (click)="updateSuccessDialog.close()"
+          class="mt-6 inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+        >
+          Entendido
+        </button>
+      </div>
+    </dialog>
+  </div>
 </section>

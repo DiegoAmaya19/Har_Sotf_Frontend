@@ -1,17 +1,17 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, viewChild } from '@angular/core';
 import { ProductService } from '../product.service';
 import { ProductRequestDTO } from '../../../core/models/DTOs/Request/productRequest';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { Product } from '../../../core/models/product';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Categoryproduct } from '../../../core/models/categoryProduct';
 import { FormsModule } from '@angular/forms';
 import { CategoryProductService } from '../../categoryProduct/category.product.service';
 
 @Component({
     selector: 'app-product-update',
-    imports: [ReactiveFormsModule, FormsModule],
+    imports: [ReactiveFormsModule, FormsModule, RouterLink],
     templateUrl: './product-update.html',
 })
 export class ProductUpdate implements OnInit {
@@ -24,6 +24,8 @@ export class ProductUpdate implements OnInit {
     protected readonly isSubmitting = signal(false);
     private readonly route = inject(ActivatedRoute);
     protected uuid: string | null = null;
+    protected readonly updateSuccessDialog =
+        viewChild.required<ElementRef<HTMLDialogElement>>('updateSuccessDialog');
 
     protected readonly form = this.fb.group({
         nameProduct: ['', Validators.required],
@@ -88,9 +90,14 @@ export class ProductUpdate implements OnInit {
         });
     }
 
-    protected async onSubmit() {
+    protected onSubmit(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
+            return;
+        }
+
+        if (!this.uuid) {
+            this.loadError.set('No se recibió el identificador del producto.');
             return;
         }
 
@@ -103,6 +110,8 @@ export class ProductUpdate implements OnInit {
             this.loadError.set('Selecciona una categoría válida.');
             return;
         }
+
+        this.loadError.set(null);
 
         const dto: ProductRequestDTO = {
             nameProduct: raw.nameProduct ?? '',
@@ -122,10 +131,11 @@ export class ProductUpdate implements OnInit {
             .pipe(finalize(() => this.isSubmitting.set(false)))
             .subscribe({
                 next: () => {
-                    console.log('Producto actualizado exitosamente');
+                    this.updateSuccessDialog().nativeElement.showModal();
                 },
                 error: (error) => {
-                    console.error('Error al crear el producto', error);
+                    console.error('Error al actualizar el producto', error);
+                    this.loadError.set('No se pudo actualizar el producto.');
                 },
             });
     }
