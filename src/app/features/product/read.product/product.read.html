@@ -61,59 +61,87 @@
       </div>
     </section>
 
-    <p>Esto es la cantidad de productos {{ acountProduct() }}</p>
-
     @if (products().length > 0) {
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div class="grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         @for (product of products(); track product.uuid) {
           <article
-            class="flex min-h-full flex-col rounded-md border border-slate-200 border-t-4 border-t-teal-700 bg-white p-5 shadow-sm"
+            class="flex h-full flex-col rounded-md border border-slate-200 border-t-4 border-t-teal-700 bg-white p-5 shadow-sm"
           >
             <div class="flex items-start justify-between gap-3">
-              <div>
-                <p class="text-xs font-semibold uppercase text-teal-700">
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-xs font-semibold uppercase text-teal-700">
                   {{ product.categoryProduct }}
                 </p>
-                <h2 class="mt-1 text-lg font-bold text-slate-900">{{ product.nameProduct }}</h2>
+                <h2
+                  class="mt-1 line-clamp-2 min-h-14 break-words text-lg font-bold text-slate-900"
+                  [title]="product.nameProduct"
+                >
+                  {{ product.nameProduct }}
+                </h2>
               </div>
-              <span class="shrink-0 rounded bg-slate-100 px-2 py-1 text-xs text-slate-600">
+              <span
+                class="shrink-0 rounded bg-slate-100 px-2 py-1 text-xs text-slate-600"
+              >
                 Ref. {{ product.reference }}
               </span>
             </div>
 
-            <p class="mt-4 flex-1 text-sm leading-6 text-slate-600">
+            <p
+              class="mt-4 h-[4.5rem] line-clamp-3 text-sm leading-6 text-slate-600"
+              [title]="product.description || 'Sin descripción disponible.'"
+            >
               {{ product.description || 'Sin descripción disponible.' }}
             </p>
 
             <dl class="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
               <div>
                 <dt class="text-xs font-medium text-slate-500">Precio</dt>
-                <dd class="mt-1 text-base font-bold text-slate-900">{{ product.price }}</dd>
+                <dd
+                  class="mt-1 truncate text-base font-bold text-slate-900"
+                  [title]="'' + product.price"
+                >
+                  {{ product.price }}
+                </dd>
               </div>
               <div>
                 <dt class="text-xs font-medium text-slate-500">Stock</dt>
-                <dd class="mt-1 text-base font-bold text-slate-900">
+                <dd
+                  class="mt-1 line-clamp-2 min-h-12 break-words text-base font-bold text-slate-900"
+                  [title]="product.stock + ' unidades'"
+                >
                   {{ product.stock }} unidades
                 </dd>
               </div>
             </dl>
-            <p class="mt-3 break-all border-t border-slate-100 pt-3 text-xs text-slate-500">
+            <p
+              class="mt-3 truncate border-t border-slate-100 pt-3 text-xs text-slate-500"
+              [title]="'ID: ' + product.uuid"
+            >
               ID: {{ product.uuid }}
             </p>
-            <div class="mt-5 flex flex-col gap-2 border-t border-slate-100 pt-4 sm:flex-row">
+            <div class="mt-5 flex justify-end border-t border-slate-100 pt-4">
               <button
                 type="button"
-                [routerLink]="['/productUpdate', product.uuid]"
-                class="inline-flex min-h-11 w-full flex-1 items-center justify-center rounded-lg border border-teal-200 bg-teal-50 px-4 py-2.5 text-sm font-semibold text-teal-800 shadow-sm transition hover:border-teal-300 hover:bg-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2 active:scale-[0.98] sm:w-auto"
+                aria-label="Ver producto completo"
+                (click)="openProductDetails(product)"
+                class="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-teal-200 bg-teal-50 px-3 py-2 text-sm font-semibold text-teal-800 shadow-sm transition hover:border-teal-300 hover:bg-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2 active:scale-[0.98]"
               >
-                Editar
-              </button>
-              <button
-                type="button"
-                class="inline-flex min-h-11 w-full flex-1 items-center justify-center rounded-lg border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-800 shadow-sm transition hover:border-rose-300 hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2 active:scale-[0.98] sm:w-auto"
-                (click)="onDelete(product.uuid)"
-              >
-                Eliminar
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="h-5 w-5"
+                >
+                  <path
+                    d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                  />
+                  <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.8" />
+                </svg>
+                Ver
               </button>
             </div>
           </article>
@@ -123,6 +151,114 @@
       <div class="rounded-md border border-dashed border-slate-300 bg-white px-5 py-12 text-center">
         <h2 class="text-lg font-semibold text-slate-800">No hay productos para mostrar</h2>
         <p class="mt-2 text-sm text-slate-600">La API no devolvió resultados.</p>
+      </div>
+    }
+
+    @if (selectedProduct(); as product) {
+      <div
+        class="product-modal-backdrop fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/60 p-4"
+        role="presentation"
+        (click)="closeProductDetails()"
+      >
+        <section
+          class="product-modal w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl sm:p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="product-modal-title"
+          aria-describedby="product-modal-description"
+          (click)="$event.stopPropagation()"
+          (keydown.escape)="closeProductDetails()"
+          tabindex="-1"
+        >
+          <div class="flex items-start justify-between gap-4">
+            <div class="min-w-0">
+              <p class="text-sm font-semibold uppercase tracking-wide text-teal-700">
+                {{ product.categoryProduct }}
+              </p>
+              <h2 id="product-modal-title" class="mt-2 break-words text-2xl font-bold text-slate-900">
+                {{ product.nameProduct }}
+              </h2>
+            </div>
+            <button
+              type="button"
+              aria-label="Cerrar detalles del producto"
+              (click)="closeProductDetails()"
+              class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
+            >
+              <span aria-hidden="true" class="text-2xl leading-none">&times;</span>
+            </button>
+          </div>
+
+          <div class="mt-6 flex items-start gap-4 border-t border-slate-200 pt-5">
+            <div class="min-w-0 flex-1">
+              <h3 class="text-sm font-semibold text-slate-700">Descripción</h3>
+              <p id="product-modal-description" class="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-slate-600">
+                {{ product.description || 'Sin descripción disponible.' }}
+              </p>
+            </div>
+            <div class="flex shrink-0 gap-2 pt-1">
+              <a
+                [routerLink]="['/productUpdate', product.uuid]"
+                (click)="closeProductDetails()"
+                [attr.aria-label]="'Editar ' + product.nameProduct"
+                [title]="'Editar ' + product.nameProduct"
+                class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-teal-200 bg-teal-50 text-teal-800 transition hover:border-teal-300 hover:bg-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+                  <path
+                    d="m14 5 5 5M4 20l4.5-1 10.1-10.1a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                  />
+                </svg>
+              </a>
+              <button
+                type="button"
+                (click)="onDelete(product.uuid)"
+                [attr.aria-label]="'Eliminar ' + product.nameProduct"
+                [title]="'Eliminar ' + product.nameProduct"
+                class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-rose-200 bg-rose-50 text-rose-800 transition hover:border-rose-300 hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+                  <path
+                    d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <dl class="mt-6 grid grid-cols-1 gap-4 border-t border-slate-200 pt-5 sm:grid-cols-2">
+            <div>
+              <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">Referencia</dt>
+              <dd class="mt-1 break-words text-base font-semibold text-slate-900">
+                {{ product.reference }}
+              </dd>
+            </div>
+            <div>
+              <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">Precio</dt>
+              <dd class="mt-1 break-words text-base font-semibold text-slate-900">
+                {{ product.price }}
+              </dd>
+            </div>
+            <div>
+              <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">Stock</dt>
+              <dd class="mt-1 text-base font-semibold text-slate-900">
+                {{ product.stock }} unidades
+              </dd>
+            </div>
+            <div>
+              <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">ID</dt>
+              <dd class="mt-1 break-all text-sm text-slate-700">{{ product.uuid }}</dd>
+            </div>
+          </dl>
+        </section>
       </div>
     }
 

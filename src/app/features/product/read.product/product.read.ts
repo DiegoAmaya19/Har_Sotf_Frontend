@@ -20,6 +20,7 @@ export class ProductRead implements OnInit {
     protected readonly apiCategoryProduct = inject(CategoryProductService);
     protected products = signal<Product[]>([]);
     protected findProduct = signal<any | null>(null);
+    protected selectedProduct = signal<Product | null>(null);
     protected searched = signal<string>('');
     protected pageIndex = signal<number>(0);
     protected pageSize = signal<number>(3);
@@ -32,6 +33,14 @@ export class ProductRead implements OnInit {
         () => this.categoryProducts().at(0)?.nameCategoryProduct ?? ''
     );
     protected btnDish = signal<boolean>(false);
+
+    protected openProductDetails(product: Product): void {
+        this.selectedProduct.set(product);
+    }
+
+    protected closeProductDetails(): void {
+        this.selectedProduct.set(null);
+    }
 
     ngOnInit(): void {
         this.onCountProduct();
@@ -112,6 +121,7 @@ export class ProductRead implements OnInit {
                 next: () => {
                     this.getAll();
                     this.onCountProduct();
+                    this.closeProductDetails();
                     console.log('Producto eliminado exitosamente');
                 },
                 error: (error) => {
