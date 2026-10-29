@@ -15,6 +15,7 @@ import { CategoryProductService } from '../../categoryProduct/category.product.s
     templateUrl: './product-update.html',
 })
 export class ProductUpdate implements OnInit {
+  
     protected readonly product = signal<Product | null>(null);
     protected categoryProducts = signal<Categoryproduct[]>([]);
     protected readonly loadError = signal<string | null>(null);
