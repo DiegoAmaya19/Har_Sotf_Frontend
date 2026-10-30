@@ -1,0 +1,58 @@
+<section class="mx-auto w-full min-w-0 max-w-2xl px-4 py-8 sm:px-6">
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <header class="mb-7">
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Crear usuario</h1>
+            <p class="mt-2 text-sm text-slate-600">Completa los datos para registrar un nuevo usuario.</p>
+        </header>
+
+        <form class="space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="grid gap-5 sm:grid-cols-2">
+                <div class="space-y-1.5">
+                    <label for="id" class="block text-sm font-medium text-slate-700">ID</label>
+                    <input id="id" type="number" formControlName="id" required placeholder="Ej. 1"
+                        class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+            </div>
+
+            <div class="space-y-1.5">
+                <label for="username" class="block text-sm font-medium text-slate-700">Nombre de usuario</label>
+                <input id="username" type="text" formControlName="username" required placeholder="Ej. usuario123"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+            </div>
+
+            <div class="space-y-1.5">
+                <label for="email" class="block text-sm font-medium text-slate-700">Correo electrónico</label>
+                <input id="email" type="email" formControlName="email" required placeholder="Ej. usuario@correo.com"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+            </div>
+
+            <div class="space-y-1.5">
+                <label for="role" class="block text-sm font-medium text-slate-700">Rol</label>
+                <select id="role" formControlName="role" required
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20">
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    <option value="PLAYER">PLAYER</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+
+            <div class="space-y-1.5">
+                <label for="createdAt" class="block text-sm font-medium text-slate-700">Fecha de creación</label>
+                <input id="createdAt" type="date" formControlName="createdAt" required
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+            </div>
+
+            <div class="flex justify-end border-t border-slate-100 pt-5">
+                <button type="submit" [disabled]="form.invalid || isSubmitting()"
+                    class="inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none disabled:active:scale-100">
+                    @if (isSubmitting()) {
+                    Guardando...
+                    } @else {
+                    Crear usuario
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
