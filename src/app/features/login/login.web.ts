@@ -1,13 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
-  templateUrl: './login.html',
+  templateUrl: './login.web.html',
 })
-export class LoginComponent {
+export class LoginWeb {
   private readonly fb = inject(FormBuilder);
   protected readonly isSubmitting = signal(false); // Define isSubmitting como una señal
 
@@ -17,6 +16,10 @@ export class LoginComponent {
     password: ['', Validators.required], // Campo obligatorio para la contraseña
     rememberMe: [false], // Campo opcional para "Recuérdame"
   });
+
+  goProvisional(): void {
+    
+  }
 
   // Método para manejar el envío del formulario
   protected onLogin() {

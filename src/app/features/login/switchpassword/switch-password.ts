@@ -7,7 +7,6 @@ import { LoginService } from '../login.service';
   selector: 'app-switch-password',
   imports: [ReactiveFormsModule],
   templateUrl: './switch-password.html',
-//  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'block w-full',
   },
@@ -39,18 +38,6 @@ export class SwitchPasswordComponent {
 
     this.isSubmitting.set(true);
 
-    this.loginService
-  //    .changePassword(currentPassword, newPassword)
-  //    .pipe(finalize(() => this.isSubmitting.set(false)))
-  //    .subscribe({
-        // next: () => {
-        //   console.log('Usuario y contraseña actualizados exitosamente');
-        //   alert('Tus credenciales han sido actualizadas.');
-        // },
-        // error: (error) => {
-        //   console.error('Error al actualizar las credenciales', error);
-        //   alert('Hubo un error al actualizar tus credenciales. Intenta nuevamente.');
-        // },
-    //   });
+    this.loginService;
   }
 }
