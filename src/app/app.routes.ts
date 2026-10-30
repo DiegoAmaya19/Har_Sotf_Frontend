@@ -10,22 +10,23 @@ import { authGuard } from './core/guard/auth-guard';
 import { adminGuard } from './core/guard/admin-guard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    // canActivateChild: [authGuard, adminGuard],
-    children: [
-      { path: '', pathMatch: 'full', redirectTo: 'productMain' },
-      {
-        path: 'productMain', component: ProductMain,
+    {
+        path: '',
+        // canActivateChild: [authGuard, adminGuard],
         children: [
-          { path: '', pathMatch: 'full', redirectTo: 'productRead' },
-          { path: 'productCreate', component: ProductCreate },
-          { path: 'productRead', component: ProductRead },
-        ]
-      },
-    ],
-  },
-  { path: 'productUpdate/:uuid', component: ProductUpdate },
-  
-  { path: '**', redirectTo: '' }
+            { path: '', pathMatch: 'full', redirectTo: 'productMain' },
+            {
+                path: 'productMain',
+                component: ProductMain,
+                children: [
+                    { path: '', pathMatch: 'full', redirectTo: 'productRead' },
+                    { path: 'productCreate', component: ProductCreate },
+                    { path: 'productRead', component: ProductRead },
+                ],
+            },
+        ],
+    },
+    { path: 'productUpdate/:uuid', component: ProductUpdate },
+
+    { path: '**', redirectTo: '' },
 ];
