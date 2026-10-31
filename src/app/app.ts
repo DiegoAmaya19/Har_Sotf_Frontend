@@ -1,10 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { MainLayoutComponent } from './features/layout/main-layout.component';
-import { LoginWeb } from './features/login/login.web';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [MainLayoutComponent, LoginWeb],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

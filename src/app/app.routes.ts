@@ -7,29 +7,37 @@ import { ProductUpdate } from './features/product/update.product/product.update'
 //import { adminGuard } from './core/guad/admin-guard';
 import { SwitchPasswordComponent } from './features/login/switchpassword/switch-password';
 import { LoginWeb } from './features/login/login.web';
+import { MainLayoutComponent } from './features/layout/main-layout.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    // canActivateChild: [authGuard, adminGuard],
-    children: [
-      { path: '', pathMatch: 'full', redirectTo: 'loginWeb' },
-      { path: 'loginWeb', component: LoginWeb },
-    ],
-  },
+    {
+        path: '',
+        children: [
+            { path: '', pathMatch: 'full', redirectTo: 'loginWeb' },
+            { path: 'loginWeb', component: LoginWeb },
+            { path: 'switchpassword', component: SwitchPasswordComponent }
+        ],
+    },
 
-  { path: 'switchpassword', component: SwitchPasswordComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'productMain' },
-  {
-    path: 'productMain',
-    component: ProductMain,
-    children: [
-      { path: '', pathMatch: 'full', redirectTo: 'productRead' },
-      { path: 'productCreate', component: ProductCreate },
-      { path: 'productRead', component: ProductRead },
-    ],
-  },
-  { path: 'productUpdate/:uuid', component: ProductUpdate },
 
-  { path: '**', redirectTo: '' },
+
+    {
+        path: 'mainLayoutComponent', component: MainLayoutComponent,
+        children: [
+            { path: '', pathMatch: 'full', redirectTo: 'productMain' },
+            {
+                path: 'productMain',
+                component: ProductMain,
+                children: [
+                    { path: '', pathMatch: 'full', redirectTo: 'productRead' },
+                    { path: 'productCreate', component: ProductCreate },
+                    { path: 'productRead', component: ProductRead }
+                ]
+            }
+        ]
+    },
+
+    { path: 'productUpdate/:uuid', component: ProductUpdate },
+
+    { path: '**', redirectTo: '' },
 ];

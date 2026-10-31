@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.web.html',
 })
 export class LoginWeb {
@@ -18,7 +19,7 @@ export class LoginWeb {
   });
 
   goProvisional(): void {
-    
+
   }
 
   // Método para manejar el envío del formulario
