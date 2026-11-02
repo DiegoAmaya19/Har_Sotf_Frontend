@@ -1,25 +1,14 @@
 <section class="mx-auto w-full min-w-0 max-w-5xl px-4 py-8 sm:px-6">
     @if (notification(); as notice) {
-    <div
-        class="fixed right-4 top-4 z-50 flex max-w-sm items-start gap-4 rounded-xl border bg-white p-4 shadow-lg"
-        [class.border-emerald-200]="notice.kind === 'success'"
-        [class.border-rose-200]="notice.kind === 'error'"
-    >
-        <p
-            class="flex-1 text-sm font-medium"
-            [class.text-emerald-900]="notice.kind === 'success'"
-            [class.text-rose-900]="notice.kind === 'error'"
-            [attr.role]="notice.kind === 'success' ? 'status' : 'alert'"
-            [attr.aria-live]="notice.kind === 'success' ? 'polite' : 'assertive'"
-        >
+    <div class="fixed right-4 top-4 z-50 flex max-w-sm items-start gap-4 rounded-xl border bg-white p-4 shadow-lg"
+        [class.border-emerald-200]="notice.kind === 'success'" [class.border-rose-200]="notice.kind === 'error'">
+        <p class="flex-1 text-sm font-medium" [class.text-emerald-900]="notice.kind === 'success'"
+            [class.text-rose-900]="notice.kind === 'error'" [attr.role]="notice.kind === 'success' ? 'status' : 'alert'"
+            [attr.aria-live]="notice.kind === 'success' ? 'polite' : 'assertive'">
             {{ notice.message }}
         </p>
-        <button
-            type="button"
-            aria-label="Cerrar notificación"
-            (click)="dismissNotification()"
-            class="text-sm font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
-        >
+        <button type="button" aria-label="Cerrar notificación" (click)="dismissNotification()"
+            class="text-sm font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600">
             Cerrar
         </button>
     </div>
@@ -47,15 +36,13 @@
 
             <div class="space-y-1.5">
                 <label for="categoryProduct" class="block text-sm font-medium text-slate-700">Categoría</label>
-                <input id="categoryProduct" type="number" formControlName="categoryProduct" required
-                    placeholder="Ej. 1"
+                <input id="categoryProduct" type="number" formControlName="categoryProduct" required placeholder="Ej. 1"
                     class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
             </div>
 
             <div class="space-y-1.5">
                 <label for="price" class="block text-sm font-medium text-slate-700">Precio</label>
-                <input id="price" type="number" formControlName="price" min="0" step="0.01" required
-                    placeholder="0.00"
+                <input id="price" type="number" formControlName="price" min="0" step="0.01" required placeholder="0.00"
                     class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
             </div>
 
@@ -71,8 +58,23 @@
                     placeholder="Describe brevemente el producto"
                     class="w-full resize-y rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"></textarea>
             </div>
-
-            <div class="flex justify-end border-t border-slate-100 pt-5 md:col-span-2">
+            <div class="flex justify-between border-t border-slate-100 pt-5 md:col-span-2">
+                <button
+                    type="button"
+                    [routerLink]="['/mainLayoutComponent', 'productMain', 'productRead']"
+                    class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+                >
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+                        <path
+                            d="M19 12H5m0 0 7 7m-7-7 7-7"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.8"
+                        />
+                    </svg>
+                    Cancelar
+                </button>
                 <button type="submit" [disabled]="form.invalid || isSubmitting()"
                     class="inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none disabled:active:scale-100">
                     @if (isSubmitting()) {

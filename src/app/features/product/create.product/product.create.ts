@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../product/product.service';
 import { ProductRequestDTO } from '../../../core/models/DTOs/Request/productRequest';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-product-create',
-    imports: [ReactiveFormsModule],
+    imports: [ReactiveFormsModule, RouterLink],
     templateUrl: './product-create.html',
 })
 export class ProductCreate {
