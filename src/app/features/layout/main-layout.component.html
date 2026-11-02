@@ -52,6 +52,24 @@
             }
           </a>
         </li>
+        <li>
+          <a
+            routerLink="supplierMain"
+            routerLinkActive="bg-indigo-600 text-white"
+            ariaCurrentWhenActive="page"
+            aria-label="Proveedores"
+            title="Proveedores"
+            class="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-slate-200 transition hover:bg-slate-800 hover:text-white"
+            [class.justify-center]="isCollapsed()"
+            [class.justify-start]="!isCollapsed()"
+          >
+            @if (isCollapsed()) {
+              <span aria-hidden="true">S</span>
+            } @else {
+              <span>Proveedores</span>
+            }
+          </a>
+        </li>
       </ul>
     </nav>
     <div class="flex shrink-0 justify-end border-t border-slate-700 p-3">

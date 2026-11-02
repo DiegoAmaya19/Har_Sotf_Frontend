@@ -8,6 +8,10 @@ import { ProductUpdate } from './features/product/update.product/product.update'
 import { SwitchPasswordComponent } from './features/login/switchpassword/switch-password';
 import { LoginWeb } from './features/login/login.web';
 import { MainLayoutComponent } from './features/layout/main-layout.component';
+import { SupplierMain } from './features/supplier/supplier.main';
+import { SupplierCreate } from './features/supplier/create.supplier/supplier.create';
+import { SupplierRead } from './features/supplier/read.supplier/supplier.read';
+import { SupplierUpdate } from './features/supplier/update.supplier/supplier.update';
 
 export const routes: Routes = [
     {
@@ -33,11 +37,21 @@ export const routes: Routes = [
                     { path: 'productCreate', component: ProductCreate },
                     { path: 'productRead', component: ProductRead }
                 ]
+            },
+            {
+                path: 'supplierMain',
+                component: SupplierMain,
+                children: [
+                    { path: '', pathMatch: 'full', redirectTo: 'supplierRead' },
+                    { path: 'supplierCreate', component: SupplierCreate },
+                    { path: 'supplierRead', component: SupplierRead }
+                ]
             }
         ]
     },
 
     { path: 'productUpdate/:uuid', component: ProductUpdate },
+    { path: 'supplierUpdate/:id', component: SupplierUpdate },
 
     { path: '**', redirectTo: '' },
 ];
