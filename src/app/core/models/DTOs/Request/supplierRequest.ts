@@ -1,6 +1,6 @@
 export interface SupplierRequestDTO {
 
-    nit: string; // Nit empresa Supplier
+    nit: string;
     idCategoryProduct: Array<number>;
     company: string;
     contact: string;

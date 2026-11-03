@@ -1,6 +1,9 @@
 <section class="mx-auto w-full min-w-0 max-w-5xl px-4 py-8 sm:px-6">
   @if (loadError()) {
-    <p role="alert" class="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900">
+    <p
+      role="alert"
+      class="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900"
+    >
       {{ loadError() }}
     </p>
   }
@@ -49,7 +52,9 @@
         />
       </div>
       <div class="space-y-1.5">
-        <label for="supplier-company" class="block text-sm font-medium text-slate-700">Empresa</label>
+        <label for="supplier-company" class="block text-sm font-medium text-slate-700"
+          >Empresa</label
+        >
         <input
           id="supplier-company"
           type="text"
@@ -60,7 +65,9 @@
         />
       </div>
       <div class="space-y-1.5">
-        <label for="supplier-contact" class="block text-sm font-medium text-slate-700">Contacto</label>
+        <label for="supplier-contact" class="block text-sm font-medium text-slate-700"
+          >Contacto</label
+        >
         <input
           id="supplier-contact"
           type="text"
@@ -71,7 +78,9 @@
         />
       </div>
       <div class="space-y-1.5">
-        <label for="supplier-phone" class="block text-sm font-medium text-slate-700">Teléfono de contacto</label>
+        <label for="supplier-phone" class="block text-sm font-medium text-slate-700"
+          >Teléfono de contacto</label
+        >
         <input
           id="supplier-phone"
           type="tel"
@@ -82,24 +91,81 @@
         />
       </div>
       <div class="space-y-1.5 md:col-span-2">
-        <label for="supplier-categories" class="block text-sm font-medium text-slate-700">
+        <span id="supplier-categories-label" class="block text-sm font-medium text-slate-700">
           Categorías de productos
-        </label>
-        <select
-          id="supplier-categories"
-          formControlName="idCategoryProduct"
-          multiple
-          required
-          aria-describedby="supplier-categories-hint"
-          class="min-h-32 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        >
-          @for (category of categories(); track category.idCategoryProduct) {
-            <option [ngValue]="category.idCategoryProduct">{{ category.nameCategoryProduct }}</option>
+        </span>
+        <div class="relative">
+          <button
+            id="supplier-categories"
+            type="button"
+            aria-labelledby="supplier-categories-label"
+            aria-controls="supplier-categories-options"
+            [attr.aria-expanded]="categoryDropdownOpen()"
+            [attr.aria-describedby]="
+              form.controls.idCategoryProduct.touched && form.controls.idCategoryProduct.invalid
+                ? 'supplier-categories-error'
+                : 'supplier-categories-hint'
+            "
+            [disabled]="categoriesLoading() || categories().length === 0"
+            (click)="toggleCategoryDropdown()"
+            class="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-left text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+          >
+            <span class="truncate">
+              @if (categoriesLoading()) {
+                Cargando categorías...
+              } @else if (selectedCategories().length > 0) {
+                {{ selectedCategories().length }} categoría(s) seleccionada(s)
+              } @else {
+                Selecciona una o varias categorías
+              }
+            </span>
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="h-5 w-5 shrink-0">
+              <path
+                d="m5 7.5 5 5 5-5"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.7"
+              />
+            </svg>
+          </button>
+
+          @if (categoryDropdownOpen()) {
+            <div
+              id="supplier-categories-options"
+              class="mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-slate-200 bg-white p-2 shadow-sm"
+            >
+              @for (category of categories(); track category.idCategoryProduct) {
+                <label
+                  [for]="'supplier-category-' + category.idCategoryProduct"
+                  class="flex cursor-pointer items-start gap-3 rounded-md px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                >
+                  <input
+                    [id]="'supplier-category-' + category.idCategoryProduct"
+                    type="checkbox"
+                    [checked]="
+                      form.controls.idCategoryProduct.value.includes(category.idCategoryProduct)
+                    "
+                    (change)="onCategoryChange($event, category.idCategoryProduct)"
+                    class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500"
+                  />
+                  <span>{{ category.nameCategoryProduct }}</span>
+                </label>
+              }
+            </div>
           }
-        </select>
+        </div>
         <p id="supplier-categories-hint" class="text-xs text-slate-500">
-          Mantén Ctrl (Windows) o Command (Mac) para seleccionar varias categorías.
+          Selecciona todas las categorías que ofrece este proveedor.
         </p>
+        @if (form.controls.idCategoryProduct.touched && form.controls.idCategoryProduct.invalid) {
+          <p id="supplier-categories-error" class="text-sm text-rose-700">
+            Selecciona al menos una categoría.
+          </p>
+        }
+        @if (!categoriesLoading() && categories().length === 0 && !loadError()) {
+          <p class="text-sm text-slate-600">No hay categorías disponibles.</p>
+        }
       </div>
       <div class="flex justify-between border-t border-slate-100 pt-5 md:col-span-2">
         <a
@@ -111,7 +177,9 @@
         </a>
         <button
           type="submit"
-          [disabled]="form.invalid || isSubmitting()"
+          [disabled]="
+            form.invalid || isSubmitting() || categoriesLoading() || categories().length === 0
+          "
           class="inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
           {{ isSubmitting() ? 'Guardando...' : 'Crear proveedor' }}

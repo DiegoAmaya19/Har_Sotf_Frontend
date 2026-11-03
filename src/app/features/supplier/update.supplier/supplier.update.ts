@@ -44,23 +44,23 @@ export class SupplierUpdate implements OnInit {
     }
     this.id.set(id);
 
-    this.supplierService.readSupplierById(id).subscribe({
-      next: (supplier) => {
-        this.form.patchValue({
-          nit: supplier.nit,
-          company: supplier.company,
-          contact: supplier.contact,
-          phoneContact: supplier.phoneContact,
-          idCategoryProduct: supplier.idCategoryProduct.map(
-            (category) => category.idCategoryProduct,
-          ),
-        });
-      },
-      error: (error) => {
-        console.error('Error al cargar el proveedor', error);
-        this.loadError.set('No se pudo cargar el proveedor.');
-      },
-    });
+    // this.supplierService.readSupplierByNit(id).subscribe({
+    //   next: (supplier) => {
+    //     this.form.patchValue({
+    //       nit: supplier.nit,
+    //       company: supplier.company,
+    //       contact: supplier.contact,
+    //       phoneContact: supplier.phoneContact,
+    //       idCategoryProduct: supplier.idCategoryProduct.map(
+    //         (category) => category.idCategoryProduct,
+    //       ),
+    //     });
+    //   },
+    //   error: (error) => {
+    //     console.error('Error al cargar el proveedor', error);
+    //     this.loadError.set('No se pudo cargar el proveedor.');
+    //   },
+    // });
 
     this.categoryProductService.readAllCategoryProducts().subscribe({
       next: (categories) => this.categories.set(categories),

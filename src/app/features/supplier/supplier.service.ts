@@ -9,9 +9,9 @@ export class SupplierService {
   private readonly http = inject(HttpClient);
 
   // Completa estas URL con las rutas correspondientes del backend.
-  private readonly baseUrlCreate = 'http://localhost:8080/api/supplier/create/';
-  private readonly baseUrlGetAll = 'http://localhost:8080/api/supplier/all';
-  private readonly baseUrlGetById = '';
+  private readonly baseUrlCreate = 'http://localhost:8080/api/supplier/create';
+  private readonly baseUrlGetAll = 'http://localhost:8080/api/supplier/all?';
+  private readonly baseUrlGetByNit = '';
   private readonly baseUrlUpdate = '';
   private readonly baseUrlDelete = '';
 
@@ -19,12 +19,14 @@ export class SupplierService {
     return this.requestAt(this.baseUrlCreate, (url) => this.http.post<Supplier>(url, dto));
   }
 
-  readAllSuppliers(): Observable<Supplier[]> {
-    return this.requestAt(this.baseUrlGetAll, (url) => this.http.get<Supplier[]>(url));
+  readAllSuppliers(page: number, size: number): Observable<Supplier[]> {
+    return this.requestAt(this.baseUrlGetAll, (url) =>
+      this.http.get<Supplier[]>(`${url}page=${page}&size=${size}`),
+    );
   }
 
-  readSupplierById(id: number): Observable<Supplier> {
-    return this.requestAt(this.baseUrlGetById, (url) => this.http.get<Supplier>(url + id));
+  readSupplierByNit(nit: string): Observable<Supplier> {
+    return this.requestAt(this.baseUrlGetByNit, (url) => this.http.get<Supplier>(url + nit));
   }
 
   updateSupplier(id: number, dto: SupplierRequestDTO): Observable<Supplier> {

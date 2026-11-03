@@ -31,7 +31,7 @@ export class ProductRead implements OnInit {
   protected selectedProduct = signal<Product | null>(null);
   protected searched = signal<string>('');
   protected pageIndex = signal<number>(0);
-  protected pageSize = signal<number>(3);
+  protected pageSize = signal<number>(9);
   protected acountProduct = signal<number>(0);
   protected categoryProducts = signal<Categoryproduct[]>([]);
   protected limPageIndex = computed(() => Math.floor(this.acountProduct() / this.pageSize()));
