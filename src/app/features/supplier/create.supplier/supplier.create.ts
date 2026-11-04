@@ -101,25 +101,15 @@ export class SupplierCreate implements OnInit {
 
         const raw = this.form.getRawValue();
 
-        const categorysIds: Array<number> = [];
-
-        raw.idCategoryProduct.forEach(element => {
-            console.info(element.valueOf)
-            // this.categoryProductService.readNameCategory(element)
-        });
-
-        
-
-
-        categorysIds.push();
-
         const dto: SupplierRequestDTO = {
             nit: raw.nit.trim(),
             company: raw.company.trim(),
             contact: raw.contact.trim(),
             phoneContact: raw.phoneContact.trim(),
-            idCategoryProduct: raw.idCategoryProduct,
+            idCategoryProducts: raw.idCategoryProduct,
         };
+
+        console.log(dto)
 
         this.isSubmitting.set(true);
         this.loadError.set(null);

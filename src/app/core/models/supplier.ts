@@ -6,5 +6,5 @@ export interface Supplier {
     company: string;
     contact: string;
     phoneContact: string
-    idCategoryProduct: Array<Categoryproduct>;
+    idCategoryProducts: Array<Categoryproduct>;
 }

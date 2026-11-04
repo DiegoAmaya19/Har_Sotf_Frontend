@@ -89,7 +89,7 @@ export class SupplierUpdate implements OnInit {
       company: raw.company ?? '',
       contact: raw.contact ?? '',
       phoneContact: raw.phoneContact ?? '',
-      idCategoryProduct: raw.idCategoryProduct ?? [],
+      idCategoryProducts: raw.idCategoryProduct ?? [],
     };
     this.loadError.set(null);
     this.notification.set(null);

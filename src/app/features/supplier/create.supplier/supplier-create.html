@@ -1,190 +1,121 @@
 <section class="mx-auto w-full min-w-0 max-w-5xl px-4 py-8 sm:px-6">
-  @if (loadError()) {
-    <p
-      role="alert"
-      class="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900"
-    >
-      {{ loadError() }}
+    @if (loadError()) {
+    <p role="alert" class="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900">
+        {{ loadError() }}
     </p>
-  }
-  @if (notification(); as notice) {
-    <div
-      class="fixed right-4 top-4 z-50 flex max-w-sm items-start gap-4 rounded-xl border bg-white p-4 shadow-lg"
-      [class.border-emerald-200]="notice.kind === 'success'"
-      [class.border-rose-200]="notice.kind === 'error'"
-    >
-      <p
-        class="flex-1 text-sm font-medium"
-        [class.text-emerald-900]="notice.kind === 'success'"
-        [class.text-rose-900]="notice.kind === 'error'"
-        [attr.role]="notice.kind === 'success' ? 'status' : 'alert'"
-        [attr.aria-live]="notice.kind === 'success' ? 'polite' : 'assertive'"
-      >
-        {{ notice.message }}
-      </p>
-      <button
-        type="button"
-        aria-label="Cerrar notificación"
-        (click)="dismissNotification()"
-        class="text-sm font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
-      >
-        Cerrar
-      </button>
-    </div>
-  }
-
-  <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-    <header class="mb-7">
-      <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Crear proveedor</h1>
-      <p class="mt-2 text-sm text-slate-600">Completa los datos para registrar un proveedor.</p>
-    </header>
-
-    <form class="grid gap-5 md:grid-cols-2" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="space-y-1.5">
-        <label for="supplier-nit" class="block text-sm font-medium text-slate-700">NIT</label>
-        <input
-          id="supplier-nit"
-          type="text"
-          formControlName="nit"
-          required
-          autocomplete="off"
-          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-        />
-      </div>
-      <div class="space-y-1.5">
-        <label for="supplier-company" class="block text-sm font-medium text-slate-700"
-          >Empresa</label
-        >
-        <input
-          id="supplier-company"
-          type="text"
-          formControlName="company"
-          required
-          autocomplete="organization"
-          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-        />
-      </div>
-      <div class="space-y-1.5">
-        <label for="supplier-contact" class="block text-sm font-medium text-slate-700"
-          >Contacto</label
-        >
-        <input
-          id="supplier-contact"
-          type="text"
-          formControlName="contact"
-          required
-          autocomplete="name"
-          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-        />
-      </div>
-      <div class="space-y-1.5">
-        <label for="supplier-phone" class="block text-sm font-medium text-slate-700"
-          >Teléfono de contacto</label
-        >
-        <input
-          id="supplier-phone"
-          type="tel"
-          formControlName="phoneContact"
-          required
-          autocomplete="tel"
-          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-        />
-      </div>
-      <div class="space-y-1.5 md:col-span-2">
-        <span id="supplier-categories-label" class="block text-sm font-medium text-slate-700">
-          Categorías de productos
-        </span>
-        <div class="relative">
-          <button
-            id="supplier-categories"
-            type="button"
-            aria-labelledby="supplier-categories-label"
-            aria-controls="supplier-categories-options"
-            [attr.aria-expanded]="categoryDropdownOpen()"
-            [attr.aria-describedby]="
-              form.controls.idCategoryProduct.touched && form.controls.idCategoryProduct.invalid
-                ? 'supplier-categories-error'
-                : 'supplier-categories-hint'
-            "
-            [disabled]="categoriesLoading() || categories().length === 0"
-            (click)="toggleCategoryDropdown()"
-            class="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-left text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
-          >
-            <span class="truncate">
-              @if (categoriesLoading()) {
-                Cargando categorías...
-              } @else if (selectedCategories().length > 0) {
-                {{ selectedCategories().length }} categoría(s) seleccionada(s)
-              } @else {
-                Selecciona una o varias categorías
-              }
-            </span>
-            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="h-5 w-5 shrink-0">
-              <path
-                d="m5 7.5 5 5 5-5"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.7"
-              />
-            </svg>
-          </button>
-
-          @if (categoryDropdownOpen()) {
-            <div
-              id="supplier-categories-options"
-              class="mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-slate-200 bg-white p-2 shadow-sm"
-            >
-              @for (category of categories(); track category.idCategoryProduct) {
-                <label
-                  [for]="'supplier-category-' + category.idCategoryProduct"
-                  class="flex cursor-pointer items-start gap-3 rounded-md px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
-                >
-                  <input
-                    [id]="'supplier-category-' + category.idCategoryProduct"
-                    type="checkbox"
-                    [checked]="
-                      form.controls.idCategoryProduct.value.includes(category.idCategoryProduct)
-                    "
-                    (change)="onCategoryChange($event, category.idCategoryProduct)"
-                    class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500"
-                  />
-                  <span>{{ category.nameCategoryProduct }}</span>
-                </label>
-              }
-            </div>
-          }
-        </div>
-        <p id="supplier-categories-hint" class="text-xs text-slate-500">
-          Selecciona todas las categorías que ofrece este proveedor.
+    }
+    @if (notification(); as notice) {
+    <div class="fixed right-4 top-4 z-50 flex max-w-sm items-start gap-4 rounded-xl border bg-white p-4 shadow-lg"
+        [class.border-emerald-200]="notice.kind === 'success'" [class.border-rose-200]="notice.kind === 'error'">
+        <p class="flex-1 text-sm font-medium" [class.text-emerald-900]="notice.kind === 'success'"
+            [class.text-rose-900]="notice.kind === 'error'" [attr.role]="notice.kind === 'success' ? 'status' : 'alert'"
+            [attr.aria-live]="notice.kind === 'success' ? 'polite' : 'assertive'">
+            {{ notice.message }}
         </p>
-        @if (form.controls.idCategoryProduct.touched && form.controls.idCategoryProduct.invalid) {
-          <p id="supplier-categories-error" class="text-sm text-rose-700">
-            Selecciona al menos una categoría.
-          </p>
-        }
-        @if (!categoriesLoading() && categories().length === 0 && !loadError()) {
-          <p class="text-sm text-slate-600">No hay categorías disponibles.</p>
-        }
-      </div>
-      <div class="flex justify-between border-t border-slate-100 pt-5 md:col-span-2">
-        <a
-          routerLink="/mainLayoutComponent/supplierMain/supplierRead"
-          class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
-        >
-          <span aria-hidden="true">←</span>
-          Cancelar
-        </a>
-        <button
-          type="submit"
-          [disabled]="
-            form.invalid || isSubmitting() || categoriesLoading() || categories().length === 0
-          "
-          class="inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300"
-        >
-          {{ isSubmitting() ? 'Guardando...' : 'Crear proveedor' }}
+        <button type="button" aria-label="Cerrar notificación" (click)="dismissNotification()"
+            class="text-sm font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600">
+            Cerrar
         </button>
-      </div>
-    </form>
-  </div>
+    </div>
+    }
+
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <header class="mb-7">
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Crear proveedor</h1>
+            <p class="mt-2 text-sm text-slate-600">Completa los datos para registrar un proveedor.</p>
+        </header>
+
+        <form class="grid gap-5 md:grid-cols-2" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="space-y-1.5">
+                <label for="supplier-nit" class="block text-sm font-medium text-slate-700">NIT</label>
+                <input id="supplier-nit" type="text" formControlName="nit" required autocomplete="off"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+            </div>
+            <div class="space-y-1.5">
+                <label for="supplier-company" class="block text-sm font-medium text-slate-700">Empresa</label>
+                <input id="supplier-company" type="text" formControlName="company" required autocomplete="organization"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+            </div>
+            <div class="space-y-1.5">
+                <label for="supplier-contact" class="block text-sm font-medium text-slate-700">Contacto</label>
+                <input id="supplier-contact" type="text" formControlName="contact" required autocomplete="name"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+            </div>
+            <div class="space-y-1.5">
+                <label for="supplier-phone" class="block text-sm font-medium text-slate-700">Teléfono de
+                    contacto</label>
+                <input id="supplier-phone" type="tel" formControlName="phoneContact" required autocomplete="tel"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" />
+            </div>
+            <!-- Funcion para seleccion del la categoria del producto -->
+            <div class="space-y-1.5 md:col-span-2">
+                <span id="supplier-categories-label" class="block text-sm font-medium text-slate-700">
+                    Categorías de productos
+                </span>
+                <div class="relative">
+                    <button id="supplier-categories" type="button" aria-labelledby="supplier-categories-label"
+                        aria-controls="supplier-categories-options" [attr.aria-expanded]="categoryDropdownOpen()"
+                        [attr.aria-describedby]="
+                        form.controls.idCategoryProduct.touched && form.controls.idCategoryProduct.invalid
+                        ? 'supplier-categories-error'
+                        : 'supplier-categories-hint'
+                        "[disabled]="categoriesLoading() || categories().length === 0" (click)="toggleCategoryDropdown()"
+                        class="flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-left text-sm text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500">
+                        <span class="truncate">
+                            @if (categoriesLoading()) {
+                            Cargando categorías...
+                            } @else if (selectedCategories().length > 0) {
+                            {{ selectedCategories().length }} categoría(s) seleccionada(s)
+                            } @else {
+                            Selecciona una o varias categorías
+                            }
+                        </span>
+                        <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="h-5 w-5 shrink-0">
+                            <path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="1.7" />
+                        </svg>
+                    </button>
+
+                    @if (categoryDropdownOpen()) {
+                    <div id="supplier-categories-options"
+                        class="mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-slate-200 bg-white p-2 shadow-sm">
+                        @for (category of categories(); track category.idCategoryProduct) {
+                        <label [for]="'supplier-category-' + category.idCategoryProduct"
+                            class="flex cursor-pointer items-start gap-3 rounded-md px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">
+                            <input [id]="'supplier-category-' + category.idCategoryProduct" type="checkbox" [checked]="
+                      form.controls.idCategoryProduct.value.includes(category.idCategoryProduct)
+                    " (change)="onCategoryChange($event, category.idCategoryProduct)"
+                                class="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500" />
+                            <span>{{ category.nameCategoryProduct }}</span>
+                        </label>
+                        }
+                    </div>
+                    }
+                </div>
+                <p id="supplier-categories-hint" class="text-xs text-slate-500">
+                    Selecciona todas las categorías que ofrece este proveedor.
+                </p>
+                @if (form.controls.idCategoryProduct.touched && form.controls.idCategoryProduct.invalid) {
+                <p id="supplier-categories-error" class="text-sm text-rose-700">
+                    Selecciona al menos una categoría.
+                </p>
+                }
+                @if (!categoriesLoading() && categories().length === 0 && !loadError()) {
+                <p class="text-sm text-slate-600">No hay categorías disponibles.</p>
+                }
+            </div>
+            <div class="flex justify-between border-t border-slate-100 pt-5 md:col-span-2">
+                <a routerLink="/mainLayoutComponent/supplierMain/supplierRead"
+                    class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2">
+                    <span aria-hidden="true">←</span>
+                    Cancelar
+                </a>
+                <button type="submit" [disabled]="
+            form.invalid || isSubmitting() || categoriesLoading() || categories().length === 0
+          " class="inline-flex min-h-11 items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300">
+                    {{ isSubmitting() ? 'Guardando...' : 'Crear proveedor' }}
+                </button>
+            </div>
+        </form>
+    </div>
 </section>
